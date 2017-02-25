@@ -23,19 +23,11 @@ UOG Giftshop
         <li><a href="#">7 Days a week from 9:00 am to 7 pm.</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Like</a></li>
+        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <!-- <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>-->
+        <!-- <li><a href="{% url 'wishlist' %}"><span class="glyphicon glyphicon-heart"></span> Wish List</a></li>-->
         <li><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="titlebar">
-      <ul class="nav navbar-nav navbar-center">
-        <li><a href="#">University of Glasgow GiftShop</a></li>
       </ul>
     </div>
   </div>
@@ -130,9 +122,5 @@ UOG Giftshop
     </div>
   </div>
 </div><br>
-
-<footer class="container-fluid text-center">
-  <p>2017 CGROUP IT Team in University of Glasgow.</p>
-</footer>
 
 {% endblock %}
