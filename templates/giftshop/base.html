@@ -12,9 +12,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<<<<<<< HEAD
+  <link rel="stylesheet" type="text/css" href="item.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
+
+
 
 
 
@@ -43,6 +47,14 @@
     }
   }
 
+=======
+  <link rel="stylesheet" type="text/css" href="{% static 'CSS/login.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'CSS/index.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'CSS/register.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+>>>>>>> origin/master
   /*Set the style of the headbar*/
   .headbar {
       height: 120px;
@@ -54,7 +66,7 @@
       height: 120px;
       margin-left: 10px;
   }
-  
+
   #welcome {
       color:#FFFFFF;
 	  text-align:center;
@@ -62,6 +74,37 @@
 	  display: table-cell;
       vertical-align: middle;
   }
+
+  /*Set the style of item page*/
+  .border-1 {
+      height: 50px;
+  }
+  #item_pic {
+      float: left;
+      margin-left: 100px;
+      margin-right: 100px;
+      margin-bottom: 50px;
+  }
+  #item_img {
+      height: 500px;
+  }
+  #item_price {
+      font-size:25px;
+  }
+  #item_text {
+      margin-right:450px;
+      font-size:17px;
+  }
+  .border-3 {
+      height:20px;
+  }
+  .border-4 {
+      height: 100px;
+  }
+  #buy_btn {
+      margin-top: 55px;
+  }
+
 
 
   </style>
@@ -72,10 +115,23 @@
       <img id="logo"  src="{% static "images/logo.jpg" %}" alt="Logo of UoG" />
     </div>
     <div id="welcome">
-      <p> Welcom to the Gift Shop Comment Web! </p> 
+      <p> Welcome to the Gift Shop Comment Web! </p>
     </div>
   </div>
+
+
   {% block body_block %}
   {% endblock %}
+<<<<<<< HEAD
+  <footer class="container-fluid text-center">
+  <p>2017 CGROUP IT Team in University of Glasgow.</p>
+</footer>
+=======
+
+  <footer class="container-fluid text-center">
+    <p>2017 CGROUP IT Team in University of Glasgow.</p>
+  </footer>
+
+>>>>>>> origin/master
 </body>
 </html>
