@@ -36,12 +36,11 @@ UOG Giftshop
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-center">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Clothing</a></li>
-        <li><a href="#">Accessories</a></li>
-        <li><a href="#">Gifts</a></li>
-        <li><a href="#">Collections</a></li>
-        <li><a href="#">Gifts</a></li>
-
+        {% if categories %}
+          {% for category in categories %}
+        <li><a href="/giftshop/category/{{ category.slug }}">{{ category.name }}</a></li>
+          {% endfor %}
+        {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>

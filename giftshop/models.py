@@ -1,11 +1,14 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.template.defaultfilters import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=32, unique=True)
-
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save( *args, **kwargs)
     class Meta:
         verbose_name_plural = 'Categories'
 
@@ -19,6 +22,7 @@ class Item(models.Model):
     price = models.FloatField(default=0)
     description = models.TextField()
     url = models.URLField()
+
     views = models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
 
