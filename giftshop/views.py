@@ -8,3 +8,9 @@ def index(request):
 
 def user_login(request):
     return render(request, 'giftshop/login.html', {})
+
+def item_detail(request):
+    return render(request, 'giftshop/item.html', {})
+
+def user_register(request):
+    return render(request, 'giftshop/register.html', {})
