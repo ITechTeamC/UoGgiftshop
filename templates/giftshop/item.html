@@ -70,16 +70,21 @@ UOG Giftshop
 
 <div>
     <div id="nav-border" class="border-1"></div>
-
+    {% if items %}
     <div id="item-001">
         <div id="item_pic" class="border-2">
             <img id="item_img" class="img-responsive" src="/media/images/item-001.jpg" />
         </div>
         <div id="item_description">
-            <h1> University Print by Libby Walker </h1>
-            <p id="item_price" >£50</p>
+
+
+
+
+            <h1>{{ items.name }}</h1>
+            <p id="item_price" >£{{ items.price }}</p>
             <div class="border-3"></div>
             <div id="item_text">
+                <p>{{ items.description }}</p>
                 <p>From a range commissioned by us from Glasgow illustrator Libby Walker.</p>
                 <p>Working with architectural details infused with aspects of university life and finished with touches of
                 colour we think that these designs by Libby Walker capture that special something about the University
@@ -90,9 +95,10 @@ UOG Giftshop
             </div>
         </div>
         <div id="buy_btn">
-            <button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button>
+            <a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a>
         </div>
     </div>
+                    {% endif %}
 
     <div class="border-4"></div>
 

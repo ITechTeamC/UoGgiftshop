@@ -19,6 +19,14 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
     return render(request, 'giftshop/category.html',context_dict)
 
+def show_item(request, item_name_slug):
+    context_dict = {}
+    try:
+        item = Item.objects.get(slug = item_name_slug)
+        context_dict['items'] = item
+    except Item.DoesNotExist:
+        context_dict['items'] = None
+    return render(request, 'giftshop/item.html',context_dict)
 
 def user_login(request):
     return render(request, 'giftshop/login.html', {})

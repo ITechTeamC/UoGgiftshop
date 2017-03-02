@@ -12,7 +12,7 @@
         {% if items %}
             <ul>
                 {% for item in items %}
-                    <li><a href="{{ item.url }}">{{ item.name }}</a> </li>
+                    <li><a href="{{ item.slug }}">{{ item.name }}</a> </li>
                 {% endfor %}
             </ul>
         {% else %}

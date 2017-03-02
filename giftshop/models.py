@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+
 class Category(models.Model):
     name = models.CharField(max_length=32, unique=True)
     slug = models.SlugField(unique=True)
@@ -18,14 +19,16 @@ class Category(models.Model):
 
 class Item(models.Model):
     category = models.ForeignKey(Category)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     price = models.FloatField(default=0)
     description = models.TextField()
     url = models.URLField()
-
     views = models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
-
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Item, self).save( *args, **kwargs)
     def __str__(self):
         return self.name
 
