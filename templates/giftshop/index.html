@@ -23,8 +23,12 @@ UOG Giftshop
         <li><a href="#">7 Days a week from 9:00 am to 7 pm.</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
-        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{{ user.username }}!"><span class="glyphicon glyphicon-log-in"></span>{{ user.username }}</a></li>
+        {% else %}
+          <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
         <li><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
       </ul>
     </div>

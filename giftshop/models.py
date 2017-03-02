@@ -59,6 +59,8 @@ class UserProfile(models.Model):
     address = models.TextField()
     phoneNumber = models.CharField(max_length=16, unique=True)
     dob = models.DateField()
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
         return self.user.username
