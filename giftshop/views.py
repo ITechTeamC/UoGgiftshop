@@ -47,8 +47,12 @@ def register(request):
             profile.user = user
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
+            print("DOB:" + profile.address)
             profile.save()
             registered = True
+
+            return index(request);
+            #return render(request, 'giftshop/index.html', context_dict)
         else:
             print(user_form.errors, profile_form.errors)
     else:
