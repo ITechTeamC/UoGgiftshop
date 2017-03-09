@@ -91,3 +91,7 @@ def item_detail(request):
 
 def user_register(request):
     return render(request, 'giftshop/register.html', {})
+
+@login_required
+def user_wishlist(request):
+    return render(request, 'giftshop/wishlist.html', {})
