@@ -141,7 +141,8 @@
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-center">
-          <li class="active"><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <!-- <li class="active"></li> -->
           {% if categories %}
             {% for category in categories %}
           <li><a href="/giftshop/category/{{ category.slug }}">{{ category.name }}</a></li>

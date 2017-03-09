@@ -6,10 +6,16 @@ from django.shortcuts import render
 from giftshop.models import Category,Item
 from giftshop.forms import UserForm, UserProfileForm
 
-def index(request):
+def get_categories(context_dict):
     category_list = Category.objects.all()
-    context_dict = {'categories': category_list}
-    return render(request, 'giftshop/index.html', context_dict)
+    context_dict['categories'] = category_list
+    return context_dict
+
+def index(request):
+    # category_list = Category.objects.all()
+    # context_dict = {'categories': category_list}
+
+    return render(request, 'giftshop/index.html', get_categories({}))
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -21,7 +27,7 @@ def show_category(request, category_name_slug):
     except Category.DoesNotExist:
         context_dict['items'] = None
         context_dict['category'] = None
-    return render(request, 'giftshop/category.html',context_dict)
+    return render(request, 'giftshop/category.html',get_categories(context_dict))
 
 def show_item(request, item_name_slug):
     context_dict = {}
@@ -30,7 +36,7 @@ def show_item(request, item_name_slug):
         context_dict['items'] = item
     except Item.DoesNotExist:
         context_dict['items'] = None
-    return render(request, 'giftshop/item.html',context_dict)
+    return render(request, 'giftshop/item.html',get_categories(context_dict))
 
 
 def register(request):
@@ -59,8 +65,9 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'giftshop/register.html',
-                  {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+    context_dict = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}
+    return render(request, 'giftshop/register.html',get_categories(context_dict))
+                  
 
 def user_login(request):
     if request.method == 'POST':
@@ -78,7 +85,7 @@ def user_login(request):
             print("Invalid login details: {0}, {1}".format(username, password))
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'giftshop/login.html', {})
+        return render(request, 'giftshop/login.html', get_categories({}))
 
 
 @login_required
@@ -94,4 +101,4 @@ def user_register(request):
 
 @login_required
 def user_wishlist(request):
-    return render(request, 'giftshop/wishlist.html', {})
+    return render(request, 'giftshop/wishlist.html', get_categories({}))
