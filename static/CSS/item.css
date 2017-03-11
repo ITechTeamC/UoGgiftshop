@@ -1,0 +1,29 @@
+/*Set the style of item page*/
+.border-1 {
+    height: 50px;
+}
+#item_pic {
+    float: left;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+}
+#item_img {
+    height: 500px;
+}
+#item_price {
+    font-size:25px;
+}
+#item_text {
+    margin-right:450px;
+    font-size:17px;
+}
+.border-3 {
+    height:20px;
+}
+.border-4 {
+    height: 100px;
+}
+#buy_btn {
+    margin-top: 55px;
+}

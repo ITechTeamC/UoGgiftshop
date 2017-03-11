@@ -12,91 +12,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC|Indie+Flower">
+
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/item.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/login.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/register.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/index.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'CSS/base.css' %}">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
 
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-
-  .carousel-inner img {
-      width: 100%; /* Set width to 100% */
-      margin: auto;
-      min-height:200px;
-  }
-
-  /* Hide the carousel text when the screen is less than 600 pixels wide */
-  @media (max-width: 600px) {
-    .carousel-caption {
-      display: none;
-    }
-  }
-
-
-  /*Set the style of the headbar*/
-  .headbar {
-      height: 120px;
-      width: 100%;
-      background-color: #00306C;
-	  display:table;
-  }
-  #logo {
-      height: 120px;
-      margin-left: 10px;
-  }
-
-  #welcome {
-      color:#FFFFFF;
-	  text-align:center;
-	  font-size:40px;
-	  display: table-cell;
-      vertical-align: middle;
-  }
-
-  /*Set the style of item page*/
-  .border-1 {
-      height: 50px;
-  }
-  #item_pic {
-      float: left;
-      margin-left: 100px;
-      margin-right: 100px;
-      margin-bottom: 50px;
-  }
-  #item_img {
-      height: 500px;
-  }
-  #item_price {
-      font-size:25px;
-  }
-  #item_text {
-      margin-right:450px;
-      font-size:17px;
-  }
-  .border-3 {
-      height:20px;
-  }
-  .border-4 {
-      height: 100px;
-  }
-  #buy_btn {
-      margin-top: 55px;
-  }
-  </style>
 </head>
 <body>
   <div class="headbar">
@@ -107,34 +34,27 @@
       <p> Welcome to the Gift Shop Comment Web! </p>
     </div>
   </div>
+
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <!-- <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Logo</a>
-      </div> -->
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li><a href="#">0123-456-789</a></li>
-          <li><a href="#">7 Days a week from 9:00 am to 7 pm.</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          {% if user.is_authenticated %}
-            <li><a href="{{ user.username }}!"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
-            <li><a href="{% url 'wishlist' %}"><span class="glyphicon glyphicon-th-list"></span> Wish List</a></li>
-            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-          {% else %}
-            <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
-            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-          {% endif %}
-          <li><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-phone"></span> 0123-456-789</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-time"></span> 7 Days a week from 9:00 am to 7:00 pm.</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li><a href="{{ user.username }}!"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+              <li><a href="{% url 'wishlist' %}"><span class="glyphicon glyphicon-th-list"></span> Wish List</a></li>
+              <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            {% else %}
+              <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+              <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            {% endif %}
+            <li><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
   </nav>
 
   <nav class="navbar navbar-inverse">
@@ -166,7 +86,6 @@
       </div>
     </div>
   </nav>
-
 
   {% block body_block %}
   {% endblock %}
