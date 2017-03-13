@@ -102,3 +102,6 @@ def user_register(request):
 @login_required
 def user_wishlist(request):
     return render(request, 'giftshop/wishlist.html', get_categories({}))
+	
+def user_profile(request):
+	return render(request, 'giftshop/profile.html', {})
