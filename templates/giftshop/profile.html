@@ -1,0 +1,100 @@
+{% extends 'giftshop/base.html' %}
+{% load staticfiles %}
+
+{% block title_block_ %}
+UOG Giftshop
+<style>
+    .border-1 {
+        height: 50px;
+    }
+</style>
+{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="/media/images/profile.jpg" class="img-responsive" alt="">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						Marcus Doe
+					</div>
+					<div class="profile-usertitle-email">
+						Doe@gmail.com
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active">
+							<a href="/giftshop/profile/">
+							<i class="glyphicon glyphicon-home"></i>
+							Overview </a>
+						</li>
+						<li>
+							<a href="/giftshop/setting/">
+							<i class="glyphicon glyphicon-cog"></i>
+							Account Settings </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-list-alt"></i>
+							Wishlist </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-question-sign"></i>
+							Help </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+				<div class="panel-group">
+					<div class="panel panel-primary ">
+						<div class="panel-heading"><i class="glyphicon glyphicon-user"></i> Username</div>
+						<div class="panel-body">Panel Content</div>
+					</div>
+					<div class="border-3"></div>
+					<div class="panel panel-danger">
+						<div class="panel-heading"><i class="glyphicon glyphicon-envelope"></i> Email</div>
+						<div class="panel-body">Panel Content</div>
+					</div>
+					<div class="border-3"></div>
+					<div class="panel panel-primary">
+						<div class="panel-heading"><i class="glyphicon glyphicon-calendar"></i> Date of Birth</div>
+						<div class="panel-body">Panel Content</div>
+					</div>
+					<div class="border-3"></div>
+					<div class="panel panel-danger">
+						<div class="panel-heading"><i class="glyphicon glyphicon-earphone"></i> Phone Number</div>
+						<div class="panel-body">Panel Content</div>
+					</div>
+					<div class="border-3"></div>
+					<div class="panel panel-primary">
+						<div class="panel-heading"><i class="glyphicon glyphicon-home"></i> Address</div>
+						<div class="panel-body">Panel Content</div>
+					</div>				
+				</div>
+			</div>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

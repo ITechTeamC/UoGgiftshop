@@ -24,6 +24,31 @@
 .border-4 {
     height: 100px;
 }
+
+.border-5 {
+	height:10px;
+}
 #buy_btn {
     margin-top: 55px;
+	width: 200px;
+	margin-left:650px;
 }
+#item_pag {
+	width:200px;
+	margin:0 auto;
+}
+#comment_title {
+	width:120px;
+}
+#comment_user {
+	width:100px;
+}
+#comment_login  {
+	text-align:center;
+	font-family:Book Antiqua;
+}
+#login_link {
+	width:30px;
+	margin-left:50%
+}
+

@@ -12,76 +12,20 @@ UOG Giftshop
 
 {% block body_block %}
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div> -->
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="#">0123-456-789</a></li>
-        <li><a href="#">7 Days a week from 9:00 am to 7 pm.</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Like</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
-
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-center">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Clothing</a></li>
-        <li><a href="#">Accessories</a></li>
-        <li><a href="#">Gifts</a></li>
-        <li><a href="#">Collections</a></li>
-        <li><a href="#">Gifts</a></li>
-
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a class="btn btn-social-icon btn-twitter"><span class="fa fa-twitter"></span></a>
-        </li>
-        <li>
-          <a class="btn btn-social-icon btn-facebook"><span class="fa fa-facebook"></span></a>
-        </li>
-        <li>
-          <a class="btn btn-social-icon btn-google"><span class="fa fa-google"></span></a>
-        </li>
-        <li>
-          <a class="btn btn-social-icon btn-linkedin"><span class="fa fa-linkedin"></span></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
 <div>
     <div id="nav-border" class="border-1"></div>
     {% if items %}
     <div id="item-001">
+	   
         <div id="item_pic" class="border-2">
             <img id="item_img" class="img-responsive" src="/media/images/item-001.jpg" />
         </div>
         <div id="item_description">
-
-
-
-
             <h1>{{ items.name }}</h1>
             <p id="item_price" >£{{ items.price }}</p>
+			<p id="item_stock">stock: 56</p>
             <div class="border-3"></div>
             <div id="item_text">
                 <p>{{ items.description }}</p>
@@ -108,36 +52,60 @@ UOG Giftshop
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>User</th>
+						<th>Title</th>
                         <th>Comment</th>
+						<th>User</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Ann</td>
+                        <td id="comment_title"><h4>Good choice</h4></td>
                         <td>I was a bit sceptical when I first purchased this bag;
                             the maker was unknown to me and knock offs usually have poor quality and don't last too long.
                             The inside has small compartments for a phone/misc cables etc. Outside are two side pockets and another pocket on the front.
                             I've been able to get quite a lot of stuff in this, and it hasn't shown any strain under heavy weight.</td>
+						<td id="comment_user">Ann</td>
                     </tr>
                     <tr>
-                        <td>Debbie</td>
+                        <td><h4>Nice</h4></td>
                         <td>It came on time, packaged excellently ensuring that the product would arrive to me in the best of conditions; which it did.</td>
+						<td>Debbie</td>
                     </tr>
                     <tr>
-                        <td>John</td>
+                        <td><h4>A</h4></td>
                         <td> It is the ideal size and seems well made. It has conveniently sized exterior pockets and the zips work well.</td>
+						<td>John</td>
                     </tr>
                 </tbody>
             </table>
+			<div id="item_pag">
+				<ul class="pagination" >
+					<li><a href="#">1</a></li>
+					<li class="active"><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+				</ul>
+			</div>
         </div>
+
     </div>
 
     <div class="border-4"></div>
-
+	
+	
+    {% if user.is_authenticated %}
     <div id="make_comment">
         <div class="container">
             <h2>Make Your Own Comment: </h2>
+			
+			<h4>Title:</h4>
+			<form role="form">
+                <div class="form-group">
+                    <textarea class="form-control" rows="1" id="comment"></textarea>
+                </div>
+            </form>			
+			<div><h4>Comment:</h4></div>
             <form role="form">
                 <div class="form-group">
                     <textarea class="form-control" rows="5" id="comment"></textarea>
@@ -150,6 +118,16 @@ UOG Giftshop
             </div>
         </div>
     </div>
+	{% else %}
+	<div class="container">
+		<div class="well" >
+			<h3 id="comment_login">Login to make your own comments.</h3>
+			<div id="login_link"><a href="/giftshop/login/" ><h4 >Login</h4></a></div>
+		</div>
+	</div>
+	{% endif %}
+	
+	
 </div>
 
 <div class="border-4"></div>

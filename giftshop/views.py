@@ -111,3 +111,9 @@ def user_wishlist(request, userID):
         context_dict['items'] = None
         context_dict['category'] = None
     return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
+
+def user_profile(request):
+	return render(request, 'giftshop/profile.html', {})
+
+def user_setting(request):
+	return render(request, 'giftshop/setting.html', {})
