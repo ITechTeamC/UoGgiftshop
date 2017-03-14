@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from giftshop.models import Category,Item
-from giftshop.forms import UserForm, UserProfileForm
+from giftshop.models import Category,Item, Wishlist
+from giftshop.forms import UserForm, UserProfileForm, WishListForm
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -53,7 +53,7 @@ def register(request):
             profile.user = user
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-            print("DOB:" + profile.address)
+
             profile.save()
             registered = True
 
@@ -67,7 +67,7 @@ def register(request):
 
     context_dict = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}
     return render(request, 'giftshop/register.html',get_categories(context_dict))
-                  
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -100,5 +100,14 @@ def user_register(request):
     return render(request, 'giftshop/register.html', {})
 
 @login_required
-def user_wishlist(request):
-    return render(request, 'giftshop/wishlist.html', get_categories({}))
+def user_wishlist(request, userID):
+    context_dict = {}
+    try:
+        category = Category.objects.get(slug = category_name_slug)
+        items = Item.objects.filter(category=category)
+        context_dict['items'] = items
+        context_dict['category'] = category
+    except Category.DoesNotExist:
+        context_dict['items'] = None
+        context_dict['category'] = None
+    return render(request, 'giftshop/wishlist.html', get_categories(context_dict))

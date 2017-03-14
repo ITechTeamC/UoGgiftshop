@@ -45,13 +45,13 @@ class Review(models.Model):
         return self.title
 
 
-class wishlist(models.Model):
-    userID = models.OneToOneField(User)
-    itemID = models.ForeignKey(Item)
+class Wishlist(models.Model):
+    user = models.OneToOneField(User)
+    item = models.ForeignKey(Item)
     addedDate = models.DateField()
 
     def __str__(self):
-        return self.itemID
+        return self.item.name
 
 
 class UserProfile(models.Model):
