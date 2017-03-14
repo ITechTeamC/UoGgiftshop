@@ -65,29 +65,43 @@ UOG Giftshop
 		<div class="col-md-9">
             <div class="profile-content">
 				<div class="panel-group">
-					<div class="panel panel-primary ">
-						<div class="panel-heading"><i class="glyphicon glyphicon-user"></i> Username</div>
-						<div class="panel-body">Panel Content</div>
-					</div>
-					<div class="border-3"></div>
-					<div class="panel panel-danger">
+					<div class="panel panel-primary">
 						<div class="panel-heading"><i class="glyphicon glyphicon-envelope"></i> Email</div>
-						<div class="panel-body">Panel Content</div>
-					</div>
-					<div class="border-3"></div>
-					<div class="panel panel-primary">
-						<div class="panel-heading"><i class="glyphicon glyphicon-calendar"></i> Date of Birth</div>
-						<div class="panel-body">Panel Content</div>
+						<div class="panel-body">
+							<div class="col-xs-6"><input type="email" class="form-control" id="email" placeholder="Enter email"></div>
+							<input type="submit" class="btn btn-primary" value="Confirm">
+						</div>
 					</div>
 					<div class="border-3"></div>
 					<div class="panel panel-danger">
-						<div class="panel-heading"><i class="glyphicon glyphicon-earphone"></i> Phone Number</div>
-						<div class="panel-body">Panel Content</div>
+						<div class="panel-heading"><i class="glyphicon glyphicon-calendar"></i> Date of Birth</div>
+						<div class="panel-body">
+							<div class="col-xs-4"><input class="form-control" id="birthday" type="date" /></div>
+							<input type="submit" class="btn btn-danger" value="Confirm">
+						</div>
 					</div>
 					<div class="border-3"></div>
 					<div class="panel panel-primary">
+						<div class="panel-heading"><i class="glyphicon glyphicon-earphone"></i> Phone Number</div>
+						<div class="panel-body">
+							<div class="col-xs-4">
+								<input type="text" class="form-control"; style="ime-mode:disabled" onpaste="return false" onkeypress="keyPress()" /> 
+							</div>
+							<div class="text_btn"><input type="submit" class="btn btn-primary" value="Confirm"></div>
+						</div>
+					</div>
+
+
+					</div>
+					<div class="border-3"></div>
+					<div class="panel panel-danger">
 						<div class="panel-heading"><i class="glyphicon glyphicon-home"></i> Address</div>
-						<div class="panel-body">Panel Content</div>
+						<div class="panel-body">
+							<div class="col-xs-9">
+								<input type="text" class="form-control" id="usr">
+							</div>
+							<div class="text_btn"><input type="submit" class="btn btn-danger" value="Confirm"></div>
+						</div>
 					</div>				
 				</div>
 			</div>
@@ -96,5 +110,15 @@ UOG Giftshop
 	</div>
 </div>
 
+<!-- Script for phone number-->
+<script>
+	function keyPress() 
+		{ var keyCode = event.keyCode; 
+			if (keyCode >= 48 && keyCode <= 57) 
+				{ event.returnValue = true; }
+			else 
+				{ event.returnValue = false; } 
+		} 
+	</script>
 
 {% endblock %}

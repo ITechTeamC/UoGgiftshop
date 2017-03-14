@@ -92,7 +92,9 @@ UOG Giftshop
     </div>
 
     <div class="border-4"></div>
-
+	
+	
+    {% if user.is_authenticated %}
     <div id="make_comment">
         <div class="container">
             <h2>Make Your Own Comment: </h2>
@@ -102,11 +104,7 @@ UOG Giftshop
                 <div class="form-group">
                     <textarea class="form-control" rows="1" id="comment"></textarea>
                 </div>
-            </form>
-
-
-
-			
+            </form>			
 			<div><h4>Comment:</h4></div>
             <form role="form">
                 <div class="form-group">
@@ -120,6 +118,16 @@ UOG Giftshop
             </div>
         </div>
     </div>
+	{% else %}
+	<div class="container">
+		<div class="well" >
+			<h3 id="comment_login">Login to make your own comments.</h3>
+			<div id="login_link"><a href="/giftshop/login/" ><h4 >Login</h4></a></div>
+		</div>
+	</div>
+	{% endif %}
+	
+	
 </div>
 
 <div class="border-4"></div>

@@ -105,3 +105,6 @@ def user_wishlist(request):
 	
 def user_profile(request):
 	return render(request, 'giftshop/profile.html', {})
+	
+def user_setting(request):
+	return render(request, 'giftshop/setting.html', {})
