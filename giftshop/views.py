@@ -108,3 +108,6 @@ def user_profile(request):
 	
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', {})
+	
+def user_comments(request):
+	return render(request,'giftshop/mycomments.html',{})
