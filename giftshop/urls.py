@@ -14,4 +14,5 @@ urlpatterns = [
 	url(r'profile/$', views.user_profile, name='profile'),
 	url(r'setting/$', views.user_setting, name='setting'),
 	url(r'mycomments/$',views.user_comments,name='mycomments'),
+    url(r'^category/([\w\-]+)/(?P<item_name_slug>[\w\-]+)/comment/$', views.add_comment, name='add_comment'),
 ]

@@ -3,8 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from giftshop.models import Category,Item
-from giftshop.forms import UserForm, UserProfileForm
+from giftshop.models import Category,Item, Comment
+from giftshop.forms import UserForm, UserProfileForm, CommmentForm
+
+
+
+
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -33,9 +37,12 @@ def show_item(request, item_name_slug):
     context_dict = {}
     try:
         item = Item.objects.get(slug = item_name_slug)
+        comments = Comment.objects.filter(item=item)
         context_dict['items'] = item
+        context_dict['comments'] = comments
     except Item.DoesNotExist:
         context_dict['items'] = None
+        context_dict['comments'] = None
     return render(request, 'giftshop/item.html',get_categories(context_dict))
 
 
@@ -51,8 +58,6 @@ def register(request):
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
             print("DOB:" + profile.address)
             profile.save()
             registered = True
@@ -111,3 +116,25 @@ def user_setting(request):
 	
 def user_comments(request):
 	return render(request,'giftshop/mycomments.html',{})
+
+
+
+
+@login_required
+def add_comment(request, item_name_slug):
+    try:
+        getItem = Item.objects.get(slug=item_name_slug)
+    except Item.DoesNotExist:
+        getItem = None
+
+    form = CommmentForm(request.POST)
+
+    if form.is_valid():
+        user = request.user
+        new_comment = form.cleaned_data['comment']
+        c = Comment(content=new_comment)  # have tested by shell
+        c.item = getItem
+        c.user = user
+        c.save()
+    # article.comment_num += 1
+    return redirect(url)

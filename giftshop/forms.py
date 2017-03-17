@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from giftshop.models import UserProfile
+from giftshop.models import UserProfile,Comment
 
 
 class UserForm(forms.ModelForm):
@@ -14,4 +14,8 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('phoneNumber','address','dob','website', 'picture')
+        fields = ('phoneNumber','address','dob')
+
+
+class CommmentForm(forms.Form):
+    comment = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': '60', 'rows': '6'}))
