@@ -5,8 +5,9 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from giftshop.models import Category,Item, Comment
 from giftshop.forms import UserForm, UserProfileForm, CommmentForm
-
-
+from django.shortcuts import redirect
+from urlparse import urljoin
+import urlparse
 
 
 
@@ -35,16 +36,40 @@ def show_category(request, category_name_slug):
 
 def show_item(request, item_name_slug):
     context_dict = {}
+    commentform = CommmentForm()
     try:
         item = Item.objects.get(slug = item_name_slug)
         comments = Comment.objects.filter(item=item)
         context_dict['items'] = item
         context_dict['comments'] = comments
+        context_dict['category'] = item.category
+        context_dict['commentform'] = commentform
+
     except Item.DoesNotExist:
         context_dict['items'] = None
         context_dict['comments'] = None
     return render(request, 'giftshop/item.html',get_categories(context_dict))
 
+
+
+
+@login_required
+def add_comment(request,category_name_slug,item_name_slug):
+    try:
+        getItem = Item.objects.get(slug=item_name_slug)
+    except Item.DoesNotExist:
+        getItem = None
+    form = CommmentForm(request.POST)
+    url = urlparse.urljoin('/giftshop/category/',category_name_slug+'/'+item_name_slug)
+
+    if form.is_valid():
+        user = request.user
+        new_comment = form.cleaned_data['comment']
+        c = Comment(content=new_comment, item = getItem)  # have tested by shell
+        c.user = user
+        c.save()
+        #article.comment_num += 1
+    return redirect(url)
 
 def register(request):
     registered = False
@@ -119,22 +144,3 @@ def user_comments(request):
 
 
 
-
-@login_required
-def add_comment(request, item_name_slug):
-    try:
-        getItem = Item.objects.get(slug=item_name_slug)
-    except Item.DoesNotExist:
-        getItem = None
-
-    form = CommmentForm(request.POST)
-
-    if form.is_valid():
-        user = request.user
-        new_comment = form.cleaned_data['comment']
-        c = Comment(content=new_comment)  # have tested by shell
-        c.item = getItem
-        c.user = user
-        c.save()
-    # article.comment_num += 1
-    return redirect(url)

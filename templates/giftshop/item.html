@@ -90,9 +90,20 @@ UOG Giftshop
 
 
 
-
-
-
+    {% if user.is_authenticated %}
+                  <div class="row">
+                <article class="col-xs-12">
+                    <h4>Sharing you comment:</h4>
+                    <form action="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_comment/" method="post">
+                        {% csrf_token %}
+                        {{ commentform.as_p }}
+                        <input class="btn btn-default" type="submit" value="Add Comment" />
+                    </form>
+                </article>
+            </div>
+            <hr>
+        </div><!--/Center Column-->
+    {% endif %}
 
 
 
