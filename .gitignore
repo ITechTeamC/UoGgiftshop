@@ -92,3 +92,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+#SQL Lite
+*.sqlite3
+giftshop/migrations/0014_auto_20170318_1844.py
+giftshop/migrations/0013_merge_20170318_1844.py
+giftshop/migrations/0009_auto_20170302_2320.py
+giftshop/migrations/0011_auto_20170317_1537.py

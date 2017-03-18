@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length=32, unique=True)
     slug = models.SlugField(unique=True)
@@ -33,16 +36,25 @@ class Item(models.Model):
         return self.name
 
 
-class Review(models.Model):
-    userID = models.OneToOneField(User)
-    itemID = models.ForeignKey(Item)
-    title = models.CharField(max_length=128)
-    rating = models.IntegerField(default=0)
-    content = models.TextField()
-    date = models.DateField()
+# class Review(models.Model):
+#     userID = models.OneToOneField(User)
+#     itemID = models.ForeignKey(Item)
+#     title = models.CharField(max_length=128)
+#     rating = models.IntegerField(default=0)
+#     content = models.TextField()
+#     date = models.DateField()
+#
+#     def __str__(self):
+#         return self.title
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, null=True)
+    item = models.ForeignKey(Item, null=True)
+    content = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True, editable=True)
     def __str__(self):
-        return self.title
+        return self.content
 
 
 class Wishlist(models.Model):
@@ -59,8 +71,6 @@ class UserProfile(models.Model):
     address = models.TextField()
     phoneNumber = models.CharField(max_length=16, unique=True)
     dob = models.DateField()
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
         return self.user.username
