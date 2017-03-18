@@ -131,23 +131,23 @@ def user_register(request):
     return render(request, 'giftshop/register.html', {})
 
 @login_required
-def user_wishlist(request, userID):
+def user_wishlist(request):
     context_dict = {}
-    try:
-        category = Category.objects.get(slug = category_name_slug)
-        items = Item.objects.filter(category=category)
-        context_dict['items'] = items
-        context_dict['category'] = category
-    except Category.DoesNotExist:
-        context_dict['items'] = None
-        context_dict['category'] = None
+    # try:
+    #     category = Category.objects.get(slug = category_name_slug)
+    #     items = Item.objects.filter(category=category)
+    #     context_dict['items'] = items
+    #     context_dict['category'] = category
+    # except Category.DoesNotExist:
+    #     context_dict['items'] = None
+    #     context_dict['category'] = None
     return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
 
 def user_profile(request):
-	return render(request, 'giftshop/profile.html', {})
+	return render(request, 'giftshop/profile.html', get_categories({}))
 
 def user_setting(request):
-	return render(request, 'giftshop/setting.html', {})
+	return render(request, 'giftshop/setting.html', get_categories({}))
 
 def user_comments(request):
-	return render(request,'giftshop/mycomments.html',{})
+	return render(request,'giftshop/mycomments.html',get_categories({}))
