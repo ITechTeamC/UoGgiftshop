@@ -59,94 +59,41 @@ UOG Giftshop
 
 
 
-
-
-
-
-            <!-- Comments -->
-            <h3>Comments:</h3>
-            <hr>
-            {% for comment in comments %}
-            <div class="row">
-
-                <article class="col-xs-12">
-                    <p class="pull-right"> <span class="label label-default">tag</span> <span class="label label-default">{{ comment.user }}</span></p>
-                    <p>{{ comment.content }}</p>
-                    <ul class="list-inline">
-                        <li><a href=" ">{{ comment.pub_date | date:"j M" }}</a></li>
-                        <li><a href=" "><span class="glyphicon glyphicon-comment"></span> total Comments</a></li>
-                        <li><a href=" "><span class="glyphicon glyphicon-thumbs-up"></span> poll Upvotes</a></li>
-                    </ul>
-                </article>
-            </div>
-            <hr>
-            {% endfor %}
-
-
-
-    {% if user.is_authenticated %}
-                  <div class="row">
-                <article class="col-xs-12">
-                    <h4>Sharing you comment:</h4>
-                    <form action="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_comment/" method="post">
-                        {% csrf_token %}
-                        {{ commentform.as_p }}
-                        <input class="btn btn-default" type="submit" value="Add Comment" />
-                    </form>
-                </article>
-            </div>
-            <hr>
-        </div><!--/Center Column-->
-    {% endif %}
-
-
-
-    <div id="show_comment">
-        <div class="container">
-            <h2>Comment</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-						<th>Title</th>
-                        <th>Comment</th>
-						<th>User</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="comment_title"><h4>Good choice</h4></td>
-                        <td>I was a bit sceptical when I first purchased this bag;
-                            the maker was unknown to me and knock offs usually have poor quality and don't last too long.
-                            The inside has small compartments for a phone/misc cables etc. Outside are two side pockets and another pocket on the front.
-                            I've been able to get quite a lot of stuff in this, and it hasn't shown any strain under heavy weight.</td>
-						<td id="comment_user">Ann</td>
-                    </tr>
-                    <tr>
-                        <td><h4>Nice</h4></td>
-                        <td>It came on time, packaged excellently ensuring that the product would arrive to me in the best of conditions; which it did.</td>
-						<td>Debbie</td>
-                    </tr>
-                    <tr>
-                        <td><h4>A</h4></td>
-                        <td> It is the ideal size and seems well made. It has conveniently sized exterior pockets and the zips work well.</td>
-						<td>John</td>
-                    </tr>
-                </tbody>
-            </table>
-			<div id="item_pag">
-				<ul class="pagination" >
-					<li><a href="#">1</a></li>
-					<li class="active"><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-				</ul>
-			</div>
-        </div>
-
-    </div>
-
     <div class="border-4"></div>
+	    <div class="border-4"></div>
+	
+	<div>
+		<div class="container">
+			<table id="table_id" class="table display table-hover">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Comment</th>
+						<th>User</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for comment in comments %}
+					<tr>
+						<td id="comment_title"><h4>Good choice</h4></td>
+						<td>{{ comment.content }}</td>
+						<td id="comment_user">{{ comment.user }}</td>
+						<td>{{ comment.pub_date | date:"j M" }}</td>	
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>			
+		</div>
+	</div>
+	
+	
+	
+	<script>
+	$(document).ready( function () {
+		$('#table_id').DataTable();
+	} );
+	</script>
 	
 	
     {% if user.is_authenticated %}
@@ -180,17 +127,14 @@ UOG Giftshop
                 </div>
             </form>			
 			<div><h4>Comment:</h4></div>
-            <form role="form">
-                <div class="form-group">
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
-                </div>
-            </form>
+                    <form action="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_comment/" method="post">
+                        {% csrf_token %}
+                        {{ commentform.as_p }}
+                        <input class="btn btn-info" type="submit" value="Submit" />
+                    </form>
+			</div>
         </div>
-        <div id="submit_btn">
-            <div class="container">
-                <input type="submit" class="btn btn-info" value="Submit">
-            </div>
-        </div>
+
     </div>
 	{% else %}
 	<div class="container">
