@@ -24,10 +24,10 @@ UOG Giftshop
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						Marcus Doe
+						{{ user.username }}
 					</div>
 					<div class="profile-usertitle-email">
-						Doe@gmail.com
+						{{ user.email }}
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -46,11 +46,6 @@ UOG Giftshop
 							<a href="/giftshop/setting/">
 							<i class="glyphicon glyphicon-cog"></i>
 							Account Settings </a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-list-alt"></i>
-							Wishlist </a>
 						</li>
 						<li>
 							<a href="#">
@@ -78,17 +73,19 @@ UOG Giftshop
 								<th>Date</th>
 							</tr>
 						</thead>
-						<tbody>
-						{% for comment in comments %}
-							<tr>
-								<td>item1</td>
-								<td id="comment_title">Good choice</td>
-								<td>{{ comment.content }}</td>
-								<td id="comment_user">{{ comment.user }}</td>
-								<td>{{ comment.pub_date | date:"j M" }}</td>	
-							</tr>
-						{% endfor %}
-						</tbody>
+						{% if comment %}
+							<tbody>
+								{% for comment in mcomments %}
+									<tr>
+										<td>item1</td>
+										<td id="comment_title">Good choice</td>
+										<td>{{ comment.content }}</td>
+										<td id="comment_user">{{ comment.user }}</td>
+										<td>{{ comment.pub_date | date:"j M" }}</td>	
+									</tr>
+								{% endfor %}
+							</tbody>
+						{% end if %}
 					</table>			
 				</div>
 				

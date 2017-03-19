@@ -27,7 +27,7 @@ UOG Giftshop
 						{{ user.username }}
 					</div>
 					<div class="profile-usertitle-email">
-						Doe@gmail.com
+						{{ user.email }}
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -38,7 +38,7 @@ UOG Giftshop
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="/giftshop/profile/">
+							<a href="#">
 							<i class="glyphicon glyphicon-home"></i>
 							Overview </a>
 						</li>
@@ -48,12 +48,7 @@ UOG Giftshop
 							Account Settings </a>
 						</li>
 						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-list-alt"></i>
-							Wishlist </a>
-						</li>
-						<li>
-							<a href="#">
+							<a href="/giftshop/mycomments/">
 							<i class="glyphicon glyphicon-comment"></i>
 							My Comments </a>
 						</li>
@@ -67,17 +62,17 @@ UOG Giftshop
 				<div class="panel-group">
 					<div class="panel panel-primary ">
 						<div class="panel-heading"><i class="glyphicon glyphicon-user"></i> Username</div>
-						<div class="panel-body">Panel Content</div>
+						<div class="panel-body"><h4>{{ user.username }}</h4></div>
 					</div>
 					<div class="border-3"></div>
 					<div class="panel panel-danger">
 						<div class="panel-heading"><i class="glyphicon glyphicon-envelope"></i> Email</div>
-						<div class="panel-body">Panel Content</div>
+						<div class="panel-body"><h4>{{ user.email }}</h4></div>
 					</div>
 					<div class="border-3"></div>
 					<div class="panel panel-primary">
 						<div class="panel-heading"><i class="glyphicon glyphicon-calendar"></i> Date of Birth</div>
-						<div class="panel-body">Panel Content</div>
+						<div class="panel-body">{{ profile.user.address }}</div>
 					</div>
 					<div class="border-3"></div>
 					<div class="panel panel-danger">

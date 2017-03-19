@@ -127,9 +127,11 @@ UOG Giftshop
                 </div>
             </form>			
 			<div><h4>Comment:</h4></div>
+			{% load bootstrap3 %}
                     <form action="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_comment/" method="post">
                         {% csrf_token %}
-                        {{ commentform.as_p }}
+						{% bootstrap_form commentform %}
+
                         <input class="btn btn-info" type="submit" value="Submit" />
                     </form>
 			</div>
