@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
-from giftshop.forms import UserForm, UserProfileForm, WishListForm, CommmentForm
+from giftshop.forms import UserForm, UserProfileForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
@@ -79,19 +79,12 @@ def add_wishlist(request, item_name_slug):
 
 @login_required
 def delete_wishlist(request, item_name_slug):
-    b = False
     user = request.user
     item = Item.objects.get(slug=item_name_slug)
-    wishlist = Wishlist.objects.filter(user=user)
-    for items in wishlist:
-        if item == items.item:
-            b = True
-    if b == False:
-        wl = Wishlist(user=user, item=item)
-        wl.save()
-        return redirect('/giftshop/wishlist/')
-    else:
-        return redirect('/giftshop/')
+    wishlist = Wishlist.objects.filter(user=user,item = item)
+    wishlist.delete()
+    return redirect('/giftshop/wishlist/')
+
 
 @login_required
 def add_comment(request,category_name_slug,item_name_slug):
