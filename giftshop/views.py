@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
-from giftshop.forms import UserForm, UserProfileForm, CommmentForm
+from giftshop.forms import UserForm, UserProfileForm, WishListForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
@@ -101,6 +101,7 @@ def add_comment(request,category_name_slug,item_name_slug):
         getItem = None
     form = CommmentForm(request.POST)
     url = urlparse.urljoin('/giftshop/category/',category_name_slug+'/'+item_name_slug)
+
     if form.is_valid():
         user = request.user
         new_comment = form.cleaned_data['comment']
@@ -185,14 +186,8 @@ def user_wishlist(request):
 
 @login_required
 def user_profile(request):
-    context_dict = {}
-    try:
-        user = request.user
-        userprofile = UserProfile.objects.get_or_create(user=user)
-        context_dict['userprofile'] = userprofile
-    except UserProfile.DoesNotExist:
-        context_dict['userprofile'] = None
-	return render(request, 'giftshop/profile.html', get_categories(context_dict))
+   
+	return render(request, 'giftshop/profile.html')
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
