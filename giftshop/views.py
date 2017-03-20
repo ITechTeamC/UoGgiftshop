@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from giftshop.models import Category,Item, Wishlist, Comment
+from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
 from giftshop.forms import UserForm, UserProfileForm, WishListForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
+from django.contrib.auth.models import User
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -42,11 +43,23 @@ def show_item(request, item_name_slug):
         context_dict['comments'] = comments
         context_dict['category'] = item.category
         context_dict['commentform'] = commentform
-
     except Item.DoesNotExist:
         context_dict['items'] = None
         context_dict['comments'] = None
     return render(request, 'giftshop/item.html',get_categories(context_dict))
+
+@login_required
+def my_comments(request):
+    context_dict = {}
+    try:
+        user = request.user
+#        comments = user.comment_set.all()
+        comments = Comment.objects.filter(user=user)
+        context_dict['comments'] = comments
+    except Comment.DoesNotExist:
+        context_dict['comments'] = None
+    return render(request, 'giftshop/mycomments.html',get_categories(context_dict))
+
 
 
 
@@ -143,11 +156,15 @@ def user_wishlist(request):
     #     context_dict['category'] = None
     return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
 
+@login_required
 def user_profile(request):
-	return render(request, 'giftshop/profile.html', get_categories({}))
+    context_dict = {}
+    try:
+        userprofile = request.user.userp
+        context_dict['userprofile'] = userprofile
+    except UserProfile.DoesNotExist:
+        context_dict['userprofile'] = None
+	return render(request, 'giftshop/profile.html', get_categories(context_dict))
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
-
-def user_comments(request):
-	return render(request,'giftshop/mycomments.html',get_categories({}))

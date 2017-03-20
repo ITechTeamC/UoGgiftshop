@@ -20,6 +20,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Item(models.Model):
     category = models.ForeignKey(Category)
     name = models.CharField(max_length=128, unique=True)
@@ -67,7 +68,7 @@ class Wishlist(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='userp')
     address = models.TextField()
     phoneNumber = models.CharField(max_length=16, unique=True)
     dob = models.DateField()

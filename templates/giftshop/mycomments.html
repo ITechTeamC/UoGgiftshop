@@ -55,12 +55,12 @@ UOG Giftshop
 					</ul>
 				</div>
 				<!-- END MENU -->
-			</div>		
+			</div>
 		</div>
-		
+
 		<div class="col-md-9">
             <div class="profile-content">
-			
+
 
 				<div class="container" style="width:120%">
 					<table id="table_id" class="table display table-hover">
@@ -73,22 +73,20 @@ UOG Giftshop
 								<th>Date</th>
 							</tr>
 						</thead>
-						{% if comment %}
 							<tbody>
-								{% for comment in mcomments %}
+								{% for comment in comments %}
 									<tr>
 										<td>item1</td>
 										<td id="comment_title">Good choice</td>
 										<td>{{ comment.content }}</td>
 										<td id="comment_user">{{ comment.user }}</td>
-										<td>{{ comment.pub_date | date:"j M" }}</td>	
+										<td>{{ comment.pub_date | date:"j M" }}</td>
 									</tr>
 								{% endfor %}
 							</tbody>
-						{% end if %}
-					</table>			
+					</table>
 				</div>
-				
+
 				<script>
 					$(document).ready( function () {
 						$('#table_id').DataTable();
@@ -97,7 +95,7 @@ UOG Giftshop
 
 			</div>
         </div>
-		
+
 
 
 	</div>
