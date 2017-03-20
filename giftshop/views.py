@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from giftshop.models import Category,Item, Wishlist, Comment
-from giftshop.forms import UserForm, UserProfileForm, WishListForm, CommmentForm
+from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
+from giftshop.forms import UserForm, UserProfileForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
+from django.contrib.auth.models import User
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -42,13 +43,47 @@ def show_item(request, item_name_slug):
         context_dict['comments'] = comments
         context_dict['category'] = item.category
         context_dict['commentform'] = commentform
-
     except Item.DoesNotExist:
         context_dict['items'] = None
         context_dict['comments'] = None
     return render(request, 'giftshop/item.html',get_categories(context_dict))
 
+@login_required
+def my_comments(request):
+    context_dict = {}
+    try:
+        user = request.user
+#        comments = user.comment_set.all()
+        comments = Comment.objects.filter(user=user)
+        context_dict['comments'] = comments
+    except Comment.DoesNotExist:
+        context_dict['comments'] = None
+    return render(request, 'giftshop/mycomments.html',get_categories(context_dict))
 
+
+@login_required
+def add_wishlist(request, item_name_slug):
+    b = False
+    user = request.user
+    item = Item.objects.get(slug=item_name_slug)
+    wishlist = Wishlist.objects.filter(user=user)
+    for items in wishlist:
+        if item == items.item:
+            b = True
+    if b == False:
+        wl = Wishlist(user=user, item=item)
+        wl.save()
+        return redirect('/giftshop/wishlist/')
+    else:
+        return redirect('/giftshop/')
+
+@login_required
+def delete_wishlist(request, item_name_slug):
+    user = request.user
+    item = Item.objects.get(slug=item_name_slug)
+    wishlist = Wishlist.objects.filter(user=user,item = item)
+    wishlist.delete()
+    return redirect('/giftshop/wishlist/')
 
 
 @login_required
@@ -133,21 +168,19 @@ def user_register(request):
 @login_required
 def user_wishlist(request):
     context_dict = {}
-    # try:
-    #     category = Category.objects.get(slug = category_name_slug)
-    #     items = Item.objects.filter(category=category)
-    #     context_dict['items'] = items
-    #     context_dict['category'] = category
-    # except Category.DoesNotExist:
-    #     context_dict['items'] = None
-    #     context_dict['category'] = None
+    try:
+        user = request.user
+        #        comments = user.comment_set.all()
+        wishlists = Wishlist.objects.filter(user=user)
+        context_dict['wishlists'] = wishlists
+    except Comment.DoesNotExist:
+        context_dict['wishlists'] = None
     return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
 
+@login_required
 def user_profile(request):
-	return render(request, 'giftshop/profile.html', get_categories({}))
+   
+	return render(request, 'giftshop/profile.html')
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
-
-def user_comments(request):
-	return render(request,'giftshop/mycomments.html',get_categories({}))

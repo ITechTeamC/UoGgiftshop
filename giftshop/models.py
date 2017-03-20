@@ -20,6 +20,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Item(models.Model):
     category = models.ForeignKey(Category)
     name = models.CharField(max_length=128, unique=True)
@@ -36,16 +37,16 @@ class Item(models.Model):
         return self.name
 
 
-class Review(models.Model):
-    userID = models.OneToOneField(User)
-    itemID = models.ForeignKey(Item)
-    title = models.CharField(max_length=128)
-    rating = models.IntegerField(default=0)
-    content = models.TextField()
-    date = models.DateField()
-
-    def __str__(self):
-        return self.title
+# class Review(models.Model):
+#     userID = models.OneToOneField(User)
+#     itemID = models.ForeignKey(Item)
+#     title = models.CharField(max_length=128)
+#     rating = models.IntegerField(default=0)
+#     content = models.TextField()
+#     date = models.DateField()
+#
+#     def __str__(self):
+#         return self.title
 
 
 class Comment(models.Model):
@@ -58,18 +59,19 @@ class Comment(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     item = models.ForeignKey(Item)
-    addedDate = models.DateField()
+    added_date = models.DateField(auto_now_add=True, editable=True)
 
     def __str__(self):
         return self.item.name
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    firstName = models.TextField()
-    lastName = models.TextField()
+    user = models.OneToOneField(User, related_name='userp')
+    address = models.TextField(default = '')
+    phoneNumber = models.CharField(max_length=16, default = '')
+    dob = models.DateField()
 
     def __str__(self):
         return self.user.username
