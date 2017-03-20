@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block body_block %}
+
+
     {% if category %}
     <div class="row" id="welcome" style="color:#000000" align="center">
          <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category.name }}</h1>
@@ -47,4 +49,10 @@
     {% else %}
         The specified category does not exist!
     {% endif %}
+
+	<div class="border-4"></div>
+	<div class="border-1"></div>
+	<br>
+
+	
 {% endblock %}
