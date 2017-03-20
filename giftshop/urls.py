@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
 	url(r'profile/$', views.user_profile, name='profile'),
 	url(r'setting/$', views.user_setting, name='setting'),
-	url(r'mycomments/$',views.user_comments,name='mycomments'),
+	url(r'mycomments/$',views.my_comments,name='my_comments'),
 
 ]
