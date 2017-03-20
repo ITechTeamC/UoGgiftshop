@@ -54,7 +54,7 @@ UOG Giftshop
 				<tbody>
 					<tr>
 						<td><a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a></td>
-						<td><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></td>
+						<td><a href="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_wishlist/"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
 					</tr>
 				</tbody>
 			</table>

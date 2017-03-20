@@ -16,6 +16,15 @@
             </div>
         </div>
 
+        								{% for wishlist in wishlists %}
+									<tr>
+										<td>{{ wishlist.item }}</td>
+                                        <td>{{ wishlist.item.slug }}</td>
+										<td id="comment_user">{{ wishlist.user }}</td>
+										<td>{{ wishlist.added_date | date:"j M" }}</td>
+									</tr>
+								{% endfor %}
+
         <!-- Item One -->
         <div class="row">
             <div class="col-md-3">
