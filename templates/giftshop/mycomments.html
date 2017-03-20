@@ -24,10 +24,10 @@ UOG Giftshop
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						Marcus Doe
+						{{ user.username }}
 					</div>
 					<div class="profile-usertitle-email">
-						Doe@gmail.com
+						{{ user.email }}
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -49,11 +49,6 @@ UOG Giftshop
 						</li>
 						<li>
 							<a href="#">
-							<i class="glyphicon glyphicon-list-alt"></i>
-							Wishlist </a>
-						</li>
-						<li>
-							<a href="#">
 							<i class="glyphicon glyphicon-comment"></i>
 							My Comments </a>
 						</li>
@@ -65,40 +60,45 @@ UOG Giftshop
 		
 		<div class="col-md-9">
             <div class="profile-content">
-				<div class="panel-group">
-					<div class="panel panel-primary ">
-						<div class="panel-heading"><i class="glyphicon glyphicon-comment"></i> Date: 2016/08/24</div>
-						<div class="panel-body">
-							<p>Title: Hello</p>
-							<p>Rate: 3.5</p>
-							<p>Content: sodifsdkmcosidhfoakmd;lasd;vnadc</p>
-						</div>
-					</div>
-					<div class="border-3"></div>
-					<div class="panel panel-danger">
-						<div class="panel-heading"><i class="glyphicon glyphicon-comment"></i> Date: 2016/07/12</div>
-						<div class="panel-body">Panel Content</div>
-					</div>
-					<div class="border-3"></div>
-					<div class="panel panel-primary">
-						<div class="panel-heading"><i class="glyphicon glyphicon-comment"></i> Date: 2016/07/05</div>
-						<div class="panel-body">Panel Content</div>
-					</div>
+			
 
-
+				<div class="container" style="width:120%">
+					<table id="table_id" class="table display table-hover">
+						<thead>
+							<tr>
+								<th>item</th>
+								<th>Title</th>
+								<th>Comment</th>
+								<th>User</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						{% if comment %}
+							<tbody>
+								{% for comment in mcomments %}
+									<tr>
+										<td>item1</td>
+										<td id="comment_title">Good choice</td>
+										<td>{{ comment.content }}</td>
+										<td id="comment_user">{{ comment.user }}</td>
+										<td>{{ comment.pub_date | date:"j M" }}</td>	
+									</tr>
+								{% endfor %}
+							</tbody>
+						{% end if %}
+					</table>			
 				</div>
+				
+				<script>
+					$(document).ready( function () {
+						$('#table_id').DataTable();
+					} );
+				</script>
+
 			</div>
         </div>
 		
-		<div class="container">
-			<ul class="pagination" id="comment_page" >
-				<li><a href="#">1</a></li>
-				<li class="active"><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-			</ul>
-		</div>
+
 
 	</div>
 </div>

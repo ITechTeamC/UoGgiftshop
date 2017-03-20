@@ -22,10 +22,14 @@
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/profile.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/setting.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/mycomments.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+
   
 
 
@@ -49,7 +53,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-              <li><a href="{{ user.username }}!"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+              <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
               <li><a href="{% url 'wishlist' %}"><span class="glyphicon glyphicon-th-list"></span> Wish List</a></li>
               <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             {% else %}

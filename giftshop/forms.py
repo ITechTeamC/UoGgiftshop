@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from giftshop.models import UserProfile,Comment
-
+from giftshop.models import UserProfile,Comment,Wishlist
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -17,8 +16,14 @@ class UserProfileForm(forms.ModelForm):
         fields = ('phoneNumber','address','dob')
 
 
+class WishListForm(forms.ModelForm):
+    class Meta:
+        model = Wishlist
+        fields = ('user', 'item','addedDate')
+
+
 class CommmentForm(forms.Form):
-    comment = forms.CharField(widget=forms.Textarea(attrs={'cols': '60', 'rows': '6'}))
+    comment = forms.CharField(widget=forms.Textarea(attrs={'cols': '126', 'rows': '5'}))
 
     class Meta:
         # Provide an association between the ModelForm and a model
