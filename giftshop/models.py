@@ -59,9 +59,9 @@ class Comment(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     item = models.ForeignKey(Item)
-    addedDate = models.DateField()
+    added_date = models.DateField(auto_now_add=True, editable=True)
 
     def __str__(self):
         return self.item.name
@@ -69,8 +69,8 @@ class Wishlist(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='userp')
-    address = models.TextField()
-    phoneNumber = models.CharField(max_length=16, unique=True)
+    address = models.TextField(default = '')
+    phoneNumber = models.CharField(max_length=16, default = '')
     dob = models.DateField()
 
     def __str__(self):

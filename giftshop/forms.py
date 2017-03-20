@@ -16,11 +16,6 @@ class UserProfileForm(forms.ModelForm):
         fields = ('phoneNumber','address','dob')
 
 
-class WishListForm(forms.ModelForm):
-    class Meta:
-        model = Wishlist
-        fields = ('user', 'item','addedDate')
-
 
 class CommmentForm(forms.Form):
     comment = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': '126', 'rows': '5'}))
