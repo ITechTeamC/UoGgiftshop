@@ -36,16 +36,16 @@ class Item(models.Model):
         return self.name
 
 
-# class Review(models.Model):
-#     userID = models.OneToOneField(User)
-#     itemID = models.ForeignKey(Item)
-#     title = models.CharField(max_length=128)
-#     rating = models.IntegerField(default=0)
-#     content = models.TextField()
-#     date = models.DateField()
-#
-#     def __str__(self):
-#         return self.title
+class Review(models.Model):
+    userID = models.OneToOneField(User)
+    itemID = models.ForeignKey(Item)
+    title = models.CharField(max_length=128)
+    rating = models.IntegerField(default=0)
+    content = models.TextField()
+    date = models.DateField()
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
@@ -68,9 +68,8 @@ class Wishlist(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    address = models.TextField()
-    phoneNumber = models.CharField(max_length=16, unique=True)
-    dob = models.DateField()
+    firstName = models.TextField()
+    lastName = models.TextField()
 
     def __str__(self):
         return self.user.username
