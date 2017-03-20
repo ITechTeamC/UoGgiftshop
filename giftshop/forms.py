@@ -18,7 +18,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommmentForm(forms.Form):
-    comment = forms.CharField(widget=forms.Textarea(attrs={'cols': '126', 'rows': '5'}))
+    comment = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': '126', 'rows': '5'}))
 
     class Meta:
         # Provide an association between the ModelForm and a model

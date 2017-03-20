@@ -48,3 +48,10 @@ vertical-align: middle;
 .bgimg {
 background-image: url('{{MEDIA_URL}}/images/menu_background.png');
 }
+
+.fb-share-button{
+	margin-top:15px;
+}
+.twitter-share-button{
+	margin-top:15px;
+}
