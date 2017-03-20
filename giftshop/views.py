@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
-from giftshop.forms import UserForm, UserProfileForm, WishListForm, CommmentForm
+from giftshop.forms import UserForm, UserProfileForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
@@ -61,6 +61,15 @@ def my_comments(request):
     return render(request, 'giftshop/mycomments.html',get_categories(context_dict))
 
 
+@login_required
+def add_wishlist(request, item_name_slug):
+    logged_user = request.user
+    item = Item.objects.get(slug=item_name_slug)
+    items = logged_user.item_setall()
+    if item not in items:
+        wl = Wishlist(user = logged_user, item = item)
+        wl.save()
+    return redirect('/giftshop/')
 
 
 
@@ -72,7 +81,6 @@ def add_comment(request,category_name_slug,item_name_slug):
         getItem = None
     form = CommmentForm(request.POST)
     url = urlparse.urljoin('/giftshop/category/',category_name_slug+'/'+item_name_slug)
-
     if form.is_valid():
         user = request.user
         new_comment = form.cleaned_data['comment']
@@ -160,7 +168,8 @@ def user_wishlist(request):
 def user_profile(request):
     context_dict = {}
     try:
-        userprofile = request.user.userp
+        user = request.user
+        userprofile = UserProfile.objects.get_or_create(user=user)
         context_dict['userprofile'] = userprofile
     except UserProfile.DoesNotExist:
         context_dict['userprofile'] = None
