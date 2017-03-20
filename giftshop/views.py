@@ -158,13 +158,8 @@ def user_wishlist(request):
 
 @login_required
 def user_profile(request):
-    context_dict = {}
-    try:
-        userprofile = request.user.userp
-        context_dict['userprofile'] = userprofile
-    except UserProfile.DoesNotExist:
-        context_dict['userprofile'] = None
-	return render(request, 'giftshop/profile.html', get_categories(context_dict))
+   
+	return render(request, 'giftshop/profile.html')
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
