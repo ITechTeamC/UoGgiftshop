@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -166,16 +168,33 @@ def user_register(request):
     return render(request, 'giftshop/register.html', {})
 
 @login_required
-def user_wishlist(request):
-    context_dict = {}
-    try:
-        user = request.user
+#def user_wishlist(request):
+#    context_dict = {}
+#    try:
+#        user = request.user
         #        comments = user.comment_set.all()
-        wishlists = Wishlist.objects.filter(user=user)
-        context_dict['wishlists'] = wishlists
-    except Comment.DoesNotExist:
-        context_dict['wishlists'] = None
-    return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
+#        wishlists = Wishlist.objects.filter(user=user)
+#        context_dict['wishlists'] = wishlists
+#    except Comment.DoesNotExist:
+#        context_dict['wishlists'] = None
+#    return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
+	
+	
+def user_wishlist(request):
+    user = request.user
+    wish_list = Wishlist.objects.filter(user=user)
+    paginator = Paginator(wish_list, 5) # Show 3 contacts per page
+    page = request.GET.get('page')
+    try:
+        wishlists = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        wishlists = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        wishlists = paginator.page(paginator.num_pages)
+
+    return render(request, 'giftshop/wishlist.html', {'wishlists': wishlists})
 
 @login_required
 def user_profile(request):

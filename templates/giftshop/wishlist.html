@@ -33,38 +33,36 @@
         </div>
 		<hr>
 		{% endfor %}
-        <hr>
+
 
         </div>
 
-        <!-- /.row -->
+
 
         <hr>
-        <!-- Pagination -->
+        <!-- Pagination and item -->
         <div class="row text-center">
             <div class="col-lg-12">
                 <ul class="pagination">
                     <li>
-                        <a href="#">&laquo;</a>
+                        {% if wishlists.has_previous %}
+							<a href="?page={{ wishlists.previous_page_number }}">previous</a>
+						{% endif %}
                     </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
+					{% for wishlist in wishlists.paginator.page_range %}
+						{% if wishlist == wishlists.number %}
+							<li class="active"><a href="?page={{ wishlist }}" >{{ wishlist }}</a></li>
+						{% else %}
+							<li><a href="?page={{ wishlist }}">{{ wishlist }}</a></li>
+						{% endif %}
+					{% endfor %}
+
                     <li>
-                        <a href="#">2</a>
+                        {% if wishlists.has_next %}
+							<a href="?page={{ wishlists.next_page_number }}">next</a>
+						{% endif %}
                     </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
