@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'giftshop',
-	'bootstrap3',
+    'bootstrap3',
 ]
 
 MIDDLEWARE_CLASSES = [

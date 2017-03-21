@@ -119,8 +119,8 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+            # if 'picture' in request.FILES:
+            #     profile.picture = request.FILES['picture']
 
             profile.save()
             registered = True
@@ -128,7 +128,11 @@ def register(request):
             return index(request);
             #return render(request, 'giftshop/index.html', context_dict)
         else:
-            print(user_form.errors, profile_form.errors)
+            error_profile_msg = profile_form.errors
+            error_user_msg = user_form.errors
+            context_dict = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered, 'error_user_msg':error_user_msg, 'error_profile_msg':error_profile_msg}
+            return render(request, 'giftshop/register.html',get_categories(context_dict))
+            #print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
@@ -148,10 +152,13 @@ def user_login(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse('index'))
             else:
-                return HttpResponse("Sorry, your account is disabled. Please try again.")
+                error_msg = "Sorry, your account is disabled. Please try again."
+                context_dict = {'error_msg': error_msg}
+                return render(request, 'giftshop/login.html', get_categories(context_dict))
         else:
-            print("Invalid login details: {0}, {1}".format(username, password))
-            return HttpResponse("Invalid login details supplied.")
+            error_msg = "Invalid login details - check UserName:{0} and  Password".format(username)
+            context_dict = {'error_msg': error_msg}
+            return render(request, 'giftshop/login.html', get_categories(context_dict))
     else:
         return render(request, 'giftshop/login.html', get_categories({}))
 
@@ -198,8 +205,7 @@ def user_wishlist(request):
 
 @login_required
 def user_profile(request):
-   
-	return render(request, 'giftshop/profile.html')
+	return render(request, 'giftshop/profile.html', get_categories({}))
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
