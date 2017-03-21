@@ -186,8 +186,7 @@ def user_wishlist(request):
 
 @login_required
 def user_profile(request):
-
-	return render(request, 'giftshop/profile.html')
+	return render(request, 'giftshop/profile.html', get_categories({}))
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
