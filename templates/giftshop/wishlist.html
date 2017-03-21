@@ -27,6 +27,7 @@
 								{% endfor %}
 
         <!-- Item One -->
+		{% for wishlist in wishlists %}
         <div class="row">
             <div class="col-md-3">
                 <a href="#">
@@ -34,12 +35,14 @@
                 </a>
             </div>
             <div class="col-md-7">
-                <h3>Item name</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+                <h3>{{ wishlist.item }}</h3>
+                <h4>{{ wishlist.item.slug }}</h4>
+                <p>{{ wishlist.added_date | date:"j M" }}</p>
                 <a class="btn btn-primary" href="#">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
+		<hr>
+		{% endfor %}
         <hr>
         <div class="row">
             <div class="col-md-3">
