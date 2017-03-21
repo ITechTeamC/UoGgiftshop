@@ -15,18 +15,9 @@
                 <h1 class="page-header">My WishList </h1>
             </div>
         </div>
-
-        								{% for wishlist in wishlists %}
-									<tr>
-										<td>{{ wishlist.item }}</td>
-                                        <td>{{ wishlist.item.slug }}</td>
-                                        <td><a href="/giftshop/wishlist/{{ wishlist.item.slug }}/delete_wishlist/">qweqweqweqwe</a>></td>
-										<td id="comment_user">{{ wishlist.user }}</td>
-										<td>{{ wishlist.added_date | date:"j M" }}</td>
-									</tr>
-								{% endfor %}
-
+		
         <!-- Item One -->
+		{% for wishlist in wishlists %}
         <div class="row">
             <div class="col-md-3">
                 <a href="#">
@@ -34,26 +25,16 @@
                 </a>
             </div>
             <div class="col-md-7">
-                <h3>Item name</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="#">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <h3>{{ wishlist.item }}</h3>
+                <h4>{{ wishlist.item.slug }}</h4>
+                <p>{{ wishlist.added_date | date:"j M" }}</p>
+                <a class="btn btn-primary" href="/giftshop/wishlist/{{ wishlist.item.slug }}/delete_wishlist/">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
+		<hr>
+		{% endfor %}
         <hr>
-        <div class="row">
-            <div class="col-md-3">
-                <a href="#">
-                    <img class="img-responsive" src="https://cdn.shopify.com/s/files/1/0697/7289/products/16128VisitorCentreObjects095_grande.jpg" height=300 width=150 alt="">
-                </a>
-            </div>
-            <div class="col-md-7">
-                <h3>Item name</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="#">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
+
         </div>
 
         <!-- /.row -->
