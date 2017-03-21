@@ -66,7 +66,7 @@ UOG Giftshop
 						<thead>
 							<tr>
 								<th>item</th>
-								<th>Title</th>
+
 								<th>Comment</th>
 								<th>User</th>
 								<th>Date</th>
@@ -76,7 +76,7 @@ UOG Giftshop
 								{% for comment in comments %}
 									<tr>
 										<td>item1</td>
-										<td id="comment_title">Good choice</td>
+
 										<td>{{ comment.content }}</td>
 										<td id="comment_user">{{ comment.user }}</td>
 										<td>{{ comment.pub_date | date:"j M" }}</td>

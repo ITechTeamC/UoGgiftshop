@@ -77,7 +77,6 @@ UOG Giftshop
 			<table id="table_id" class="table display table-hover">
 				<thead>
 					<tr>
-						<th>Title</th>
 						<th>Comment</th>
 						<th>User</th>
 						<th>Date</th>
@@ -86,7 +85,6 @@ UOG Giftshop
 				<tbody>
 				{% for comment in comments %}
 					<tr>
-						<td id="comment_title"><h4>Good choice</h4></td>
 						<td>{{ comment.content }}</td>
 						<td id="comment_user">{{ comment.user }}</td>
 						<td>{{ comment.pub_date | date:"j M" }}</td>	
@@ -129,13 +127,7 @@ UOG Giftshop
 			</div>
 			<br>
 			<br>
-			
-			<h4>Title:</h4>
-			<form role="form">
-                <div class="form-group">
-                    <textarea class="form-control" rows="1" id="comment"></textarea>
-                </div>
-            </form>			
+					
 			<div><h4>Comment:</h4></div>
 			{% load bootstrap3 %}
                     <form action="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_comment/" method="post">
