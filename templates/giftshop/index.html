@@ -57,6 +57,15 @@ UOG Giftshop
 <div class="container text-center">
   <!-- <h3>What We Do</h3><br> -->
   <div><h2 style="text-align:center">Most Popular</h2></div>
+
+
+    {% for item in items %}
+
+    {{ item.name }}
+    {{ item.logo.url }}
+    giftshop/category/{{item.category.slug}}/{{ item.slug }}
+    {% endfor %}
+
   <br>
   <p></p>
   <div class="row">

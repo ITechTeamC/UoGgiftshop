@@ -20,8 +20,9 @@ def get_categories(context_dict):
 def index(request):
     # category_list = Category.objects.all()
     # context_dict = {'categories': category_list}
-
-    return render(request, 'giftshop/index.html', get_categories({}))
+    item_list = Item.objects.order_by('-views')[:6]
+    context_dict['items'] = item_list
+    return render(request, 'giftshop/index.html', context_dict)
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -87,7 +88,8 @@ def add_comment(request,category_name_slug,item_name_slug):
     if form.is_valid():
         user = request.user
         new_comment = form.cleaned_data['comment']
-        c = Comment(content=new_comment, item = getItem)  # have tested by shell
+        rate = form.cleaned_data['rate']
+        c = Comment(content=new_comment, item = getItem, rate = rate)  # have tested by shell
         c.user = user
         c.save()
         #article.comment_num += 1

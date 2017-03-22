@@ -43,7 +43,7 @@ class Comment(models.Model):
     item = models.ForeignKey(Item, null=True)
     content = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
-    rate = models.IntegerField(default=0)
+    rate = models.IntegerField(default=1)
     def __str__(self):
         return self.content
 
