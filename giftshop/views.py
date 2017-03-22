@@ -209,13 +209,7 @@ def user_wishlist(request):
 
 @login_required
 def user_profile(request):
-    user = request.user.username
-    userpro = UserProfile.objects.filter(user = user.username)
-    try:
-        context_dict['userpro'] = userpro
-    except UserProfile.DoesNotExist:
-        context_dict['userpro'] = None
-	return render(request, 'giftshop/profile.html', get_categories(context_dict))
+	return render(request, 'giftshop/profile.html',{})
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
