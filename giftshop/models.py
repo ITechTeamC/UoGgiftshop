@@ -75,3 +75,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Itempictures(models.Model):
+    item = models.ForeignKey(Item)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+    def __str__(self):
+        return self.item.name

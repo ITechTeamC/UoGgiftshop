@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
+from giftshop.models import Category,Item, Wishlist, Comment,UserProfile,Itempictures
 from giftshop.forms import UserForm, UserProfileForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
@@ -41,13 +41,17 @@ def show_item(request, item_name_slug):
     try:
         item = Item.objects.get(slug = item_name_slug)
         comments = Comment.objects.filter(item=item)
+        pictures = Itempictures.objects.filter(item=item)
         context_dict['items'] = item
         context_dict['comments'] = comments
         context_dict['category'] = item.category
+        context_dict['pictures'] = pictures
         context_dict['commentform'] = commentform
     except Item.DoesNotExist:
         context_dict['items'] = None
         context_dict['comments'] = None
+        context_dict['category'] = None
+        context_dict['pictures'] = None
     return render(request, 'giftshop/item.html',get_categories(context_dict))
 
 @login_required
@@ -205,7 +209,13 @@ def user_wishlist(request):
 
 @login_required
 def user_profile(request):
-	return render(request, 'giftshop/profile.html', get_categories({}))
+    user = request.user.username
+    userpro = UserProfile.objects.filter(user = user.username)
+    try:
+        context_dict['userpro'] = userpro
+    except UserProfile.DoesNotExist:
+        context_dict['userpro'] = None
+	return render(request, 'giftshop/profile.html', get_categories(context_dict))
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
