@@ -243,7 +243,7 @@ def visitor_cookie_handler(request,item):
     last_visit_time = datetime.strptime(last_visit_cookie[:-7],
                                         '%Y-%m-%d %H:%M:%S')
     # If it's been more than a day since the last visit...
-    if (datetime.now() - last_visit_time).days >0:
+    if (datetime.now() - last_visit_time).seconds >1:
         visits = visits + 1
         item.views = visits
         item.save(update_fields=['views'])
@@ -254,6 +254,7 @@ def visitor_cookie_handler(request,item):
         request.session['last_visit'] = last_visit_cookie
     # Update/set the visits cookie
     request.session['visits'] = visits
+	
 
 
 def show_item(request, item_name_slug):

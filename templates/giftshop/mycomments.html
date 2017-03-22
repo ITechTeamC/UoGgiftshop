@@ -71,7 +71,7 @@ UOG Giftshop
 							<tbody>
 								{% for comment in comments %}
 									<tr>
-										<td>item1</td>
+										<td>{{comment.item}}</td>
 
 										<td>{{ comment.content }}</td>
 										<td id="comment_user">{{ comment.user }}</td>
