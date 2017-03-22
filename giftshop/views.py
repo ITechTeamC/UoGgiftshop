@@ -10,7 +10,7 @@ from urlparse import urljoin
 import urlparse
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from datetime import datetime
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -58,7 +58,9 @@ def show_item(request, item_name_slug):
         context_dict['comments'] = None
         context_dict['category'] = None
         context_dict['pictures'] = None
-    return render(request, 'giftshop/item.html',get_categories(context_dict))
+    response = render(request, 'giftshop/item.html',get_categories(context_dict))
+    visitor_cookie_handler(request, response, item)
+    return response
 
 @login_required
 def my_comments(request):
@@ -185,18 +187,6 @@ def user_register(request):
     return render(request, 'giftshop/register.html', {})
 
 @login_required
-#def user_wishlist(request):
-#    context_dict = {}
-#    try:
-#        user = request.user
-        #        comments = user.comment_set.all()
-#        wishlists = Wishlist.objects.filter(user=user)
-#        context_dict['wishlists'] = wishlists
-#    except Comment.DoesNotExist:
-#        context_dict['wishlists'] = None
-#    return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
-	
-	
 def user_wishlist(request):
     user = request.user
     wish_list = Wishlist.objects.filter(user=user)
@@ -219,3 +209,31 @@ def user_profile(request):
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
+
+# A helper method
+def get_server_side_cookie(request, cookie, default_val=None):
+    val = request.session.get(cookie)
+
+    if not val:
+        val = default_val
+    return val
+
+# Updated the function definition
+def visitor_cookie_handler(request,response,item):
+
+    visits = int(item.views)
+
+    last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7],
+    '%Y-%m-%d %H:%M:%S')
+    # If it's been more than a day since the last visit...
+    visits = visits + 1
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits + 1
+        #update the last visit cookie now that we have updated the count
+        response.set_cookie('last_visit', str(datetime.now()))
+    else:
+        visits = 1
+        # set the last visit cookie
+        response.set_cookie('last_visit', last_visit_cookie) # Update/set the visits cookie
+    response.set_cookie('visits', visits)
