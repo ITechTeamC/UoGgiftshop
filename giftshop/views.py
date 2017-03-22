@@ -10,6 +10,7 @@ from urlparse import urljoin
 import urlparse
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 def get_categories(context_dict):
@@ -182,8 +183,42 @@ def user_wishlist(request):
     return render(request, 'giftshop/wishlist.html', {'wishlists': wishlists})
 
 @login_required
-def user_profile(request):
-	return render(request, 'giftshop/profile.html',{})
+def register_profile(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return index(request)
+        else:
+            print  form.errors
+    else:
+        form = UserProfileForm()
+    return render(request, 'giftshop/profile.html',{'form':form})
+
+@login_required
+def profile_page(request, username):
+    user = get_object_or_404(User, username=username)
+    return render (request, 'giftshop/profile.html',{'profile_user':user})
+
+@login_required
+def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return redirect('index')
+    userprofile = UserProfile.objects.get_or_create(user=user)[0]
+    form = UserProfileForm(
+        {'phoneNumber': userprofile.phoneNumber, 'address': userprofile.address, 'dob': userprofile.dob})
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('profile',user.username)
+        else:
+            print(form.errors)
+    return render(request, 'giftshop/profile.html',
+                  {'userprofile': userprofile,'selecteduser': user, 'form':form})
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))

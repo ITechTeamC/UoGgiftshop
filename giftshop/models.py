@@ -58,10 +58,11 @@ class Wishlist(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User,related_name='user')
+    user = models.OneToOneField(User)
     address = models.TextField(default = '')
     phoneNumber = models.CharField(max_length=16, default = '')
-    dob = models.DateField()
+    dob = models.DateField(null=True, blank=True)
+
     def __str__(self):
         return self.user.username
 

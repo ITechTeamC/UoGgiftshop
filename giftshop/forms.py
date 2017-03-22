@@ -11,9 +11,12 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    phoneNumber = forms.CharField(required=False)
+    address = forms.CharField(required=False)
+    dob = forms.DateField(required=False)
     class Meta:
         model = UserProfile
-        fields = ('phoneNumber','address','dob')
+        exclude = ('user',)
 
 
 

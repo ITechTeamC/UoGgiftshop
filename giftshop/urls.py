@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
-	url(r'^profile/$', views.user_profile, name='profile'),
-	url(r'^setting/$', views.user_setting, name='setting'),
+	url(r'setting/$', views.user_setting, name='setting'),
 	url(r'^mycomments/$',views.my_comments,name='my_comments'),
-
+    url(r'^register_profile/$', views.register_profile, name='register_profile'),
+    url(r'^profile/(?P<username>[\w\-]+)/$', views.profile, name='profile'),
 ]
