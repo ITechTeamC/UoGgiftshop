@@ -22,6 +22,7 @@ UOG Giftshop
         <div id="item_description">
 
             <h1>{{ items.name }}</h1>
+            <h1>{{ totalrate }}</h1>
 			{% for n in pictures %}
 			<img src="{{n.picture.url}}"/>
 			{% endfor %}
@@ -45,8 +46,7 @@ UOG Giftshop
 		<br>
 		<br>
 		<br>
-		
->>>>>>> a1c8e07e2b9ced7d7c4ec4b681f1c3f29c0b0559
+
             <p id="item_price" >£{{ items.price }}</p>
 			<div id="rate"><h4>Rate:</h4></div>
 			<div class=" col-xs-2">

@@ -41,12 +41,18 @@ def show_item(request, item_name_slug):
     try:
         item = Item.objects.get(slug = item_name_slug)
         comments = Comment.objects.filter(item=item)
+        totalrate = 0.0
+        i = comments.count()
+        for n in comments:
+            totalrate += float(n.rate)
+        totalrate = totalrate / i
         pictures = Itempictures.objects.filter(item=item)
         context_dict['items'] = item
         context_dict['comments'] = comments
         context_dict['category'] = item.category
         context_dict['pictures'] = pictures
         context_dict['commentform'] = commentform
+        context_dict['totalrate'] = totalrate
     except Item.DoesNotExist:
         context_dict['items'] = None
         context_dict['comments'] = None
