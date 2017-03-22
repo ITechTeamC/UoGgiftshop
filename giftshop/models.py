@@ -30,6 +30,7 @@ class Item(models.Model):
     views = models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    logo = models.ImageField(upload_to='profile_images', blank=True)
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Item, self).save( *args, **kwargs)

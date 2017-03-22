@@ -35,32 +35,7 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
     return render(request, 'giftshop/category.html',get_categories(context_dict))
 
-def show_item(request, item_name_slug):
-    context_dict = {}
-    commentform = CommmentForm()
-    try:
-        item = Item.objects.get(slug = item_name_slug)
-        comments = Comment.objects.filter(item=item)
-        totalrate = 0.0
-        i = comments.count()
-        for n in comments:
-            totalrate += float(n.rate)
-        totalrate = totalrate / i
-        pictures = Itempictures.objects.filter(item=item)
-        context_dict['items'] = item
-        context_dict['comments'] = comments
-        context_dict['category'] = item.category
-        context_dict['pictures'] = pictures
-        context_dict['commentform'] = commentform
-        context_dict['totalrate'] = totalrate
-    except Item.DoesNotExist:
-        context_dict['items'] = None
-        context_dict['comments'] = None
-        context_dict['category'] = None
-        context_dict['pictures'] = None
-    response = render(request, 'giftshop/item.html',get_categories(context_dict))
-    visitor_cookie_handler(request, response, item)
-    return response
+
 
 @login_required
 def my_comments(request):
@@ -210,7 +185,8 @@ def user_profile(request):
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
 
-# A helper method
+
+
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
 
@@ -218,22 +194,58 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
-# Updated the function definition
-def visitor_cookie_handler(request,response,item):
 
+# Updated the function definition
+def visitor_cookie_handler(request,item):
     visits = int(item.views)
 
-    last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+    last_visit_cookie = get_server_side_cookie(request,
+                                               'last_visit',
+                                               str(datetime.now()))
     last_visit_time = datetime.strptime(last_visit_cookie[:-7],
-    '%Y-%m-%d %H:%M:%S')
+                                        '%Y-%m-%d %H:%M:%S')
     # If it's been more than a day since the last visit...
-    visits = visits + 1
-    if (datetime.now() - last_visit_time).days > 0:
+    if (datetime.now() - last_visit_time).days >0:
         visits = visits + 1
-        #update the last visit cookie now that we have updated the count
-        response.set_cookie('last_visit', str(datetime.now()))
+        item.views = visits
+        item.save(update_fields=['views'])
+        # update the last visit cookie now that we have updated the count
+        request.session['last_visit'] = str(datetime.now())
     else:
-        visits = 1
         # set the last visit cookie
-        response.set_cookie('last_visit', last_visit_cookie) # Update/set the visits cookie
-    response.set_cookie('visits', visits)
+        request.session['last_visit'] = last_visit_cookie
+    # Update/set the visits cookie
+    request.session['visits'] = visits
+
+
+def show_item(request, item_name_slug):
+    context_dict = {}
+    commentform = CommmentForm()
+    try:
+        item = Item.objects.get(slug = item_name_slug)
+        comments = Comment.objects.filter(item=item)
+        totalrate = 0.0
+        i = comments.count()
+        if i == 0:
+            i = 1
+        for n in comments:
+            totalrate += float(n.rate)
+        totalrate = totalrate / i
+        pictures = Itempictures.objects.filter(item=item)
+        context_dict['items'] = item
+        context_dict['comments'] = comments
+        context_dict['category'] = item.category
+        context_dict['pictures'] = pictures
+        context_dict['commentform'] = commentform
+        context_dict['totalrate'] = totalrate
+    except Item.DoesNotExist:
+        context_dict['items'] = None
+        context_dict['comments'] = None
+        context_dict['category'] = None
+        context_dict['pictures'] = None
+    response = render(request, 'giftshop/item.html',get_categories(context_dict))
+
+    visitor_cookie_handler(request, item)
+    context_dict['visits'] = request.session['visits']
+    response = render(request, 'giftshop/item.html', get_categories(context_dict))
+    return response

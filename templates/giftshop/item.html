@@ -17,10 +17,10 @@ UOG Giftshop
     <div id="item-001">
 	   
         <div id="item_pic" class="border-2">
-            <img id="item_img" class="img-responsive" src="/media/images/item-001.jpg" />
+            <img id="item_img" class="img-responsive" src="{{ items.logo.url }}" />
         </div>
         <div id="item_description">
-
+			<p> visits: {{ visits }}</p>
             <h1>{{ items.name }}</h1>
             <h1>{{ totalrate }}</h1>
 			{% for n in pictures %}
