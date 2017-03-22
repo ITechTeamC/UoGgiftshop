@@ -6,13 +6,11 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name= 'login'),
     url(r'^item/$', views.item_detail, name= 'item'),
     url(r'^wishlist/$', views.user_wishlist, name='wishlist'),
-<<<<<<< HEAD
+
 #	url(r'^wishlist/$', views.listing, name='wishlist'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/(?P<item_name_slug>[\w\-]+)/add_comment/$',
-        views.add_comment, name='add_comment'),
-=======
+
     url(r'^category/(?P<category_name_slug>[\w\-]+)/(?P<item_name_slug>[\w\-]+)/add_comment/$',views.add_comment, name='add_comment'),
->>>>>>> origin/master
+
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.show_category, name='show_category'),
     url(r'^category/([\w\-]+)/(?P<item_name_slug>[\w\-]+)/$', views.show_item, name='show_item'),
     url(r'^category/([\w\-]+)/(?P<item_name_slug>[\w\-]+)/add_wishlist/$', views.add_wishlist, name='add_wishlist'),

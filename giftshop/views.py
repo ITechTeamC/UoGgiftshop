@@ -77,7 +77,7 @@ def add_wishlist(request, item_name_slug):
         wl.save()
         return redirect('/giftshop/wishlist/')
     else:
-        return redirect('/giftshop/')
+        return redirect('/giftshop/wishlist/')
 
 @login_required
 def delete_wishlist(request, item_name_slug):
