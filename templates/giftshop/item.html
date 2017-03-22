@@ -103,6 +103,7 @@ UOG Giftshop
 						<th>Comment</th>
 						<th>User</th>
 						<th>Date</th>
+						<th>Rate</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -110,7 +111,8 @@ UOG Giftshop
 					<tr>
 						<td>{{ comment.content }}</td>
 						<td id="comment_user">{{ comment.user }}</td>
-						<td>{{ comment.pub_date | date:"j M" }}</td>	
+						<td>{{ comment.pub_date | date:"j M" }}</td>
+						<td>{{ comment.rate }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
