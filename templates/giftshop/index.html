@@ -59,44 +59,16 @@ UOG Giftshop
   <div><h2 style="text-align:center">Most Popular</h2></div>
 
 
-    {% for item in items %}
-
-    {{ item.name }}
-    {{ item.logo.url }}
-    giftshop/category/{{item.category.slug}}/{{ item.slug }}
-    {% endfor %}
-
   <br>
   <p></p>
   <div class="row">
-    <div class="col-sm-4">
-      <img src="{{MEDIA_URL}}/images/new2.png" class="img-responsive"   alt="Image">
-      <p>New Arrivals</p>
-    </div>
-    <div class="col-sm-4">
-      <img src="{{MEDIA_URL}}/images/new2.png" class="img-responsive"  alt="Image">
-      <p>Best Sellers</p>
-    </div>
-	<div class="col-sm-4">
-      <img src="{{MEDIA_URL}}/images/new2.png" class="img-responsive"  alt="Image">
-      <p>Best Sellers</p>
-	  <br>
-    </div>
+	{% for item in items %}
+		<div class="col-sm-4">
+			<a href="category/{{item.category.slug}}/{{ item.slug }}"><img src="{{ item.logo.url }}" class="img-responsive"  alt="Image"></a>
+			<p>{{ item.name }}</p>
+		</div>
+	 {% endfor %}
 	
-	
-	<div class="col-sm-4">
-      <img src="{{MEDIA_URL}}/images/new2.png" class="img-responsive"  alt="Image">
-      <p>Best Sellers</p>
-    </div>
-	<div class="col-sm-4">
-      <img src="{{MEDIA_URL}}/images/new2.png" class="img-responsive"  alt="Image">
-      <p>Best Sellers</p>
-    </div>
-	<div class="col-sm-4">
-      <img src="{{MEDIA_URL}}/images/new2.png" class="img-responsive"  alt="Image">
-      <p>Best Sellers</p>
-    </div>
-
   </div>
 </div><br>
 
