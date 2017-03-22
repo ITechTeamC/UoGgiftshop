@@ -30,9 +30,9 @@ UOG Giftshop
 		<nav class="navbar navbar-default" id="new-nav"style="margin-left: 10%" >
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
-					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/clothing-1/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/images/item-001.jpg" alt="Image"></a></li>
-					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/clothing-1/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/images/item-002.jpg" alt="Image"></a><li>
-					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/clothing-1/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/images/item-003.jpg" alt="Image"></a><li>
+					<li><a href="http://127.0.0.1:8000/giftshop/category/accessories/university-hallmarked-silver-crest-pin/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/Accessories/University Hallmarked Silver Crest Pin.jpg" alt="Image"></a></li>
+					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/university-beanie-hat/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/Clothing/hat.jpg" alt="Image"></a><li>
+					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/clothing-1/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/Accessories/Exclusive University Alumni and Graduation Watch.jpg" alt="Image"></a><li>
 				</ul>
 			</div>
 		</nav>
@@ -63,9 +63,8 @@ UOG Giftshop
   <p></p>
   <div class="row">
 	{% for item in items %}
-		<div class="col-sm-4">
+		<div class="col-sm-4 container">
 			<a href="category/{{item.category.slug}}/{{ item.slug }}"><img src="{{ item.logo.url }}" class="img-responsive"  alt="Image"></a>
-			<p>{{ item.name }}</p>
 		</div>
 	 {% endfor %}
 	
