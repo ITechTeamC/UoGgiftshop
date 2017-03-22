@@ -20,9 +20,10 @@ def get_categories(context_dict):
 def index(request):
     # category_list = Category.objects.all()
     # context_dict = {'categories': category_list}
+    context_dict ={}
     item_list = Item.objects.order_by('-views')[:6]
     context_dict['items'] = item_list
-    return render(request, 'giftshop/index.html', context_dict)
+    return render(request, 'giftshop/index.html', get_categories(context_dict))
 
 def show_category(request, category_name_slug):
     context_dict = {}
