@@ -57,28 +57,7 @@
       <p> Welcome to the Gift Shop Comment Web! </p>
     </div>
   </div>
-  <!--Two lines navigation bar-->
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li><a href="#"><span class="glyphicon glyphicon-phone"></span> 0123-456-789</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-time"></span> 7 Days a week from 9:00 am to 7:00 pm.</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-              <li><a href="{% url 'profile' user.username %}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
-              <li><a href="{% url 'wishlist' %}"><span class="glyphicon glyphicon-th-list"></span> Wish List</a></li>
-              <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-            {% else %}
-              <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
-              <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-  </nav>
-
+  <!--Navigation bar-->
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="myNavbar">
@@ -91,6 +70,16 @@
             {% endfor %}
           {% endif %}
         </ul>
+		  <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'profile' user.username %}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+              <li><a href="{% url 'wishlist' %}"><span class="glyphicon glyphicon-th-list"></span> Wish List</a></li>
+              <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            {% else %}
+              <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+              <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            {% endif %}
+          </ul>
 
       </div>
     </div>
