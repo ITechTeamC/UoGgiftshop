@@ -1,5 +1,5 @@
 from django.contrib import admin
-from giftshop.models import Category, Item, UserProfile, Comment,Wishlist
+from giftshop.models import Category, Item, UserProfile, Comment,Wishlist,Itempictures
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -19,3 +19,4 @@ admin.site.register(Wishlist,WishlistAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Item, ItemAdmin)
 admin.site.register(UserProfile)
+admin.site.register(Itempictures)

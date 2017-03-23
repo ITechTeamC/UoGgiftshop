@@ -30,6 +30,7 @@ class Item(models.Model):
     views = models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    logo = models.ImageField(upload_to='profile_images', blank=True)
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Item, self).save( *args, **kwargs)
@@ -37,23 +38,12 @@ class Item(models.Model):
         return self.name
 
 
-# class Review(models.Model):
-#     userID = models.OneToOneField(User)
-#     itemID = models.ForeignKey(Item)
-#     title = models.CharField(max_length=128)
-#     rating = models.IntegerField(default=0)
-#     content = models.TextField()
-#     date = models.DateField()
-#
-#     def __str__(self):
-#         return self.title
-
-
 class Comment(models.Model):
     user = models.ForeignKey(User, null=True)
     item = models.ForeignKey(Item, null=True)
     content = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
+    rate = models.IntegerField(default=1)
     def __str__(self):
         return self.content
 
@@ -68,10 +58,17 @@ class Wishlist(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='userp')
+    user = models.OneToOneField(User)
     address = models.TextField(default = '')
     phoneNumber = models.CharField(max_length=16, default = '')
-    dob = models.DateField()
+    dob = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username
+
+
+class Itempictures(models.Model):
+    item = models.ForeignKey(Item)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+    def __str__(self):
+        return self.item.name

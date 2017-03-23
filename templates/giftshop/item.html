@@ -16,65 +16,77 @@ UOG Giftshop
     {% if items %}
     <div id="item-001">
 	   
-        <div id="item_pic" class="border-2">
-            <img id="item_img" class="img-responsive" src="/media/images/item-001.jpg" />
+        <div id="item_pic" style="margin:30px;float:left" >
+            <img id="item_img" class="img-responsive" src="{{ items.logo.url }}" />
         </div>
         <div id="item_description">
+
+
+<!--
+			{% for n in pictures %}
+			<img src="{{n.picture.url}}"/>
+			{% endfor %}-->
             
-			
-		<ul class="nav navbar-nav">
-			<li><h1>{{ items.name }}</h1></li>
-			<li><div style="margin:5px"></div></li>
-			<li>
+			<div class="container col-xs-8" >	
+				<ul class="nav navbar-nav">
+					<li><h1>{{ items.name }}</h1></li>
+					<li><div style="margin:5px"></div></li>
+					<li>
 		  <!--<a href="http://127.0.0.1:8000/giftshop/category/{{category.slug}}/{{items.slug}}/">try</a>-->
-				<div class="fb-share-button" data-href="" data-layout="button">
+					<div class="fb-share-button" data-href="" data-layout="button">
+					</div>
+					</li>
+					<li><div style="margin:5px"></div></li>
+					<li>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-size="samall">Tweet</a> 
+						<script>
+							!function(d,s,id){
+								var js,fjs=d.getElementsByTagName(s)[0],
+								p=/^http:/.test(d.location)?'http':'https';
+								if(!d.getElementById(id)){js=d.createElement(s);
+								js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+								fjs.parentNode.insertBefore(js,fjs);}}
+							(document, 'script', 'twitter-wjs');
+						</script>
+					</li>
+				</ul>
+				<br>
+				<br>
+				<br>
+				<br>
+
+				<p id="item_price" >£{{ items.price }}</p>
+				<div id="rate"><h4>Rate:</h4></div>
+				<div class=" col-xs-2">
+					<div class="progress">
+						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="70"
+							aria-valuemin="0" aria-valuemax="100" style="width:{%  widthratio totalrate 1 10 %}%">
+							{{ totalrate }}
+						</div>
+					</div>
 				</div>
-			</li>
-			<li><div style="margin:5px"></div></li>
-			<li>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-size="samall">Tweet</a> 
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-			</li>
-        </ul>
-		<br>
-		<br>
-		<br>
-		<br>
-		
-            <p id="item_price" >£{{ items.price }}</p>
-			<div id="rate"><h4>Rate:</h4></div>
-			<div class=" col-xs-2">
-			<div class="progress">
-				<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="70"
-					aria-valuemin="0" aria-valuemax="100" style="width:20%">
-					2.0
+				<br><br><br>
+
+			
+				<div><p id="item_stock">stock: 56</p></div>
+				<p> visits: {{ visits }}</p>
+
+				<div class="border-3"></div>
+				<div id="item_text">
+					{{ items.description|linebreaks }}
 				</div>
 			</div>
-			</div>
-			<br>
-			<br>
-			<br>
+				<div id="buy_btn">
+					<table>
+						<tbody>
+							<tr>
+								<td><a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a></td>
+								<td><a href="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_wishlist/"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			
-			<div><p id="item_stock">stock: 56</p><div>
-
-			
-
-            <div class="border-3"></div>
-            <div id="item_text">
-				{{ items.description|linebreaks }}
-
-            </div>
-        </div>
-        <div id="buy_btn">
-			<table>
-				<tbody>
-					<tr>
-						<td><a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a></td>
-						<td><a href="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_wishlist/"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
-					</tr>
-				</tbody>
-			</table>
-        </div>
     </div>
                     {% endif %}
 
@@ -97,6 +109,7 @@ UOG Giftshop
 						<th>Comment</th>
 						<th>User</th>
 						<th>Date</th>
+						<th>Rate</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -104,7 +117,8 @@ UOG Giftshop
 					<tr>
 						<td>{{ comment.content }}</td>
 						<td id="comment_user">{{ comment.user }}</td>
-						<td>{{ comment.pub_date | date:"j M" }}</td>	
+						<td>{{ comment.pub_date | date:"j M" }}</td>
+						<td>{{ comment.rate }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
@@ -125,25 +139,8 @@ UOG Giftshop
     <div id="make_comment">
         <div class="container">
             <h2>Make Your Own Comment: </h2>
-			<div id="rate"><h4 >Rate:</h4></div>
-			<div class=" col-xs-1">
-			<form>      
-				<select class="form-control" id="sel1">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-					<option>7</option>
-					<option>8</option>
-					<option>9</option>
-					<option>10</option>
-				</select>
-			</form>
-			</div>
 			<br>
-			<br>
+
 					
 			<div><h4>Comment:</h4></div>
 			{% load bootstrap3 %}

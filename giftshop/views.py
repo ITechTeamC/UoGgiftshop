@@ -3,14 +3,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from giftshop.models import Category,Item, Wishlist, Comment,UserProfile
+from giftshop.models import Category,Item, Wishlist, Comment,UserProfile,Itempictures
 from giftshop.forms import UserForm, UserProfileForm, CommmentForm
 from django.shortcuts import redirect
 from urlparse import urljoin
 import urlparse
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.shortcuts import get_object_or_404
+from datetime import datetime
 
 def get_categories(context_dict):
     category_list = Category.objects.all()
@@ -20,8 +21,10 @@ def get_categories(context_dict):
 def index(request):
     # category_list = Category.objects.all()
     # context_dict = {'categories': category_list}
-
-    return render(request, 'giftshop/index.html', get_categories({}))
+    context_dict ={}
+    item_list = Item.objects.order_by('-views')[:6]
+    context_dict['items'] = item_list
+    return render(request, 'giftshop/index.html', get_categories(context_dict))
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -35,20 +38,7 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
     return render(request, 'giftshop/category.html',get_categories(context_dict))
 
-def show_item(request, item_name_slug):
-    context_dict = {}
-    commentform = CommmentForm()
-    try:
-        item = Item.objects.get(slug = item_name_slug)
-        comments = Comment.objects.filter(item=item)
-        context_dict['items'] = item
-        context_dict['comments'] = comments
-        context_dict['category'] = item.category
-        context_dict['commentform'] = commentform
-    except Item.DoesNotExist:
-        context_dict['items'] = None
-        context_dict['comments'] = None
-    return render(request, 'giftshop/item.html',get_categories(context_dict))
+
 
 @login_required
 def my_comments(request):
@@ -100,7 +90,8 @@ def add_comment(request,category_name_slug,item_name_slug):
     if form.is_valid():
         user = request.user
         new_comment = form.cleaned_data['comment']
-        c = Comment(content=new_comment, item = getItem)  # have tested by shell
+        rate = form.cleaned_data['rate']
+        c = Comment(content=new_comment, item = getItem, rate = rate)  # have tested by shell
         c.user = user
         c.save()
         #article.comment_num += 1
@@ -175,18 +166,6 @@ def user_register(request):
     return render(request, 'giftshop/register.html', {})
 
 @login_required
-#def user_wishlist(request):
-#    context_dict = {}
-#    try:
-#        user = request.user
-        #        comments = user.comment_set.all()
-#        wishlists = Wishlist.objects.filter(user=user)
-#        context_dict['wishlists'] = wishlists
-#    except Comment.DoesNotExist:
-#        context_dict['wishlists'] = None
-#    return render(request, 'giftshop/wishlist.html', get_categories(context_dict))
-	
-	
 def user_wishlist(request):
     user = request.user
     wish_list = Wishlist.objects.filter(user=user)
@@ -204,8 +183,108 @@ def user_wishlist(request):
     return render(request, 'giftshop/wishlist.html', {'wishlists': wishlists})
 
 @login_required
-def user_profile(request):
-	return render(request, 'giftshop/profile.html', get_categories({}))
+def register_profile(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return index(request)
+        else:
+            print  form.errors
+    else:
+        form = UserProfileForm()
+    return render(request, 'giftshop/profile.html',{'form':form})
+
+@login_required
+def profile_page(request, username):
+    user = get_object_or_404(User, username=username)
+    return render (request, 'giftshop/profile.html',{'profile_user':user})
+
+@login_required
+def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return redirect('index')
+    userprofile = UserProfile.objects.get_or_create(user=user)[0]
+    form = UserProfileForm(
+        {'phoneNumber': userprofile.phoneNumber, 'address': userprofile.address, 'dob': userprofile.dob})
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('profile',user.username)
+        else:
+            print(form.errors)
+    return render(request, 'giftshop/profile.html',
+                  {'userprofile': userprofile,'selecteduser': user, 'form':form})
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
+
+
+
+def get_server_side_cookie(request, cookie, default_val=None):
+    val = request.session.get(cookie)
+
+    if not val:
+        val = default_val
+    return val
+
+
+# Updated the function definition
+def visitor_cookie_handler(request,item):
+    visits = int(item.views)
+
+    last_visit_cookie = get_server_side_cookie(request,
+                                               'last_visit',
+                                               str(datetime.now()))
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7],
+                                        '%Y-%m-%d %H:%M:%S')
+    # If it's been more than a day since the last visit...
+    if (datetime.now() - last_visit_time).seconds >1:
+        visits = visits + 1
+        item.views = visits
+        item.save(update_fields=['views'])
+        # update the last visit cookie now that we have updated the count
+        request.session['last_visit'] = str(datetime.now())
+    else:
+        # set the last visit cookie
+        request.session['last_visit'] = last_visit_cookie
+    # Update/set the visits cookie
+    request.session['visits'] = visits
+	
+
+
+def show_item(request, item_name_slug):
+    context_dict = {}
+    commentform = CommmentForm()
+    try:
+        item = Item.objects.get(slug = item_name_slug)
+        comments = Comment.objects.filter(item=item)
+        totalrate = 0.0
+        i = comments.count()
+        if i == 0:
+            i = 1
+        for n in comments:
+            totalrate += float(n.rate)
+        totalrate = totalrate / i
+        pictures = Itempictures.objects.filter(item=item)
+        context_dict['items'] = item
+        context_dict['comments'] = comments
+        context_dict['category'] = item.category
+        context_dict['pictures'] = pictures
+        context_dict['commentform'] = commentform
+        context_dict['totalrate'] = totalrate
+    except Item.DoesNotExist:
+        context_dict['items'] = None
+        context_dict['comments'] = None
+        context_dict['category'] = None
+        context_dict['pictures'] = None
+    response = render(request, 'giftshop/item.html',get_categories(context_dict))
+
+    visitor_cookie_handler(request, item)
+    context_dict['visits'] = request.session['visits']
+    response = render(request, 'giftshop/item.html', get_categories(context_dict))
+    return response

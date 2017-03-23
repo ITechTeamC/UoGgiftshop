@@ -13,7 +13,7 @@ footer {
 .carousel-inner img {
   width: 100%; /* Set width to 100% */
   margin: auto;
-  min-height:200px;
+  height:500px;
 }
 
 /* Hide the carousel text when the screen is less than 600 pixels wide */
@@ -22,3 +22,15 @@ footer {
   display: none;
 }
 }
+
+#scroll-img {
+
+	width: auto;
+	max-height: 500px; 
+	display: block;	
+}
+
+#new-nav {
+	margin-left:10%;
+}
+

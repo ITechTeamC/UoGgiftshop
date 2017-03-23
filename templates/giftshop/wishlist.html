@@ -17,11 +17,12 @@
         </div>
 		
         <!-- Item One -->
+        {% if wishlists %}
 		{% for wishlist in wishlists %}
         <div class="row">
             <div class="col-md-3">
                 <a href="#">
-                    <img class="img-responsive" src="https://cdn.shopify.com/s/files/1/0697/7289/products/16128VisitorCentreObjects095_grande.jpg" height=300 width=150 alt="">
+                    <img class="img-responsive" src="{{wishlist.item.logo.url}}" height=300 width=150 alt="">
                 </a>
             </div>
             <div class="col-md-7">
@@ -33,7 +34,9 @@
         </div>
 		<hr>
 		{% endfor %}
-
+        {% else %}
+        <p2>Your wishlist is empty. </p2>
+        {% endif %}
 
         </div>
 
