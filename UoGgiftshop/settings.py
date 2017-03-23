@@ -29,6 +29,13 @@ SECRET_KEY = 'l%^uxx-*k9-*6wrts)u=!_1-)=i68u+zdbnak2kan^w36rg$h$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#Local Test Setting
+#ALLOWED_HOSTS = []
+
+#Python Anywhere Deploy Setting
+ALLOWED_HOSTS = ['127.0.0.1','itechteamc.pythonanywhere.com']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Application definition
 
 INSTALLED_APPS = [
