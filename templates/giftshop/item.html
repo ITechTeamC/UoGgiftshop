@@ -14,14 +14,17 @@ UOG Giftshop
 
 	
     {% if items %}
-    <div id="item-001">
+    <div id="item-001" class="col-xs-12">
 		<!--Show picture of the item-->
-        <div id="item_pic" style="margin:30px;float:left" >
+        <div id="item_pic" >
             <img id="item_img" class="img-responsive" src="{{ items.logo.url }}" />
         </div>
-        <div id="item_description">
-
-
+		
+		
+		
+		
+		
+        <div id="item_description" >
 <!--
 			{% for n in pictures %}
 			<img src="{{n.picture.url}}"/>
@@ -65,7 +68,7 @@ UOG Giftshop
 				<div id="item_text">
 					{{ items.description|linebreaks }}
 				</div>
-			</div>
+			
 			<!--Buy button link to the official giftshop website-->
 				<div id="buy_btn">
 					<table>
@@ -80,8 +83,9 @@ UOG Giftshop
 						</tbody>
 					</table>
 				</div>
-
-    </div>
+			</div>
+		</div>
+	</div>
   {% endif %}
 
     <div class="border-4"></div>
@@ -92,7 +96,8 @@ UOG Giftshop
 
 
 	<!--This is a table to show comments of the item-->
-	<div>
+	<div class="container col-xs-12" >
+
 		<div class="container">
 			<h2>Customer Reviews</h2>
 			<br>
@@ -124,25 +129,23 @@ UOG Giftshop
 
 
 <!--If user login, they can add the comment of the item and rate it-->
+	<div id="comment_part" >
     {% if user.is_authenticated %}
-    <div id="make_comment">
+    <div id="make_comment" >
         <div class="container">
             <h2>Make Your Own Comment: </h2>
-			<br>
+			<div ><h4>Comment:</h4></div>
 
-
-			<div><h4>Comment:</h4></div>
 			{% load bootstrap3 %}
-                    <form action="{% url 'add_comment' category.slug items.slug %}" method="post">
-                        {% csrf_token %}
-						{% bootstrap_form commentform %}
+            <form action="{% url 'add_comment' category.slug items.slug %}" method="post">
+            {% csrf_token %}
+			{% bootstrap_form commentform %}
+            <input class="btn btn-info" type="submit" value="Submit" />
+            </form>
+		</div>
+	</div>
 
-                        <input class="btn btn-info" type="submit" value="Submit" />
-                    </form>
-			</div>
-        </div>
 
-    </div>
 	{% else %}
 	<div class="container">
 		<div class="well" >
@@ -151,10 +154,15 @@ UOG Giftshop
 		</div>
 	</div>
 	{% endif %}
+	</div>
+	
+	
+
 
 
 </div>
 
+<div class="border-4"></div>
 <div class="border-4"></div>
 
 

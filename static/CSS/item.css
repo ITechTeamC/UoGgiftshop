@@ -3,13 +3,16 @@
     height: 50px;
 }
 #item_pic {
-    float: left;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 50px;
+    
+	margin:30px;
+	float:left
 }
 #item_img {
-    height: 500px;
+    max-height: 500px;
+	width:autos;
+	margin-top: 20px;
+
+	
 }
 #item_price {
     font-size:25px;
@@ -30,9 +33,9 @@
 	height:10px;
 }
 #buy_btn {
-    margin-top: 55px;
+    margin-top: 20px;
 	width: 200px;
-	margin-left:650px;
+	
 }
 #item_pag {
 	width:200px;
