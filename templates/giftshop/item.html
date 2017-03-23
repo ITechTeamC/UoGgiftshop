@@ -12,10 +12,10 @@ UOG Giftshop
 
 <div>
 
-
+	
     {% if items %}
     <div id="item-001">
-
+		<!--Show picture of the item-->
         <div id="item_pic" style="margin:30px;float:left" >
             <img id="item_img" class="img-responsive" src="{{ items.logo.url }}" />
         </div>
@@ -26,7 +26,7 @@ UOG Giftshop
 			{% for n in pictures %}
 			<img src="{{n.picture.url}}"/>
 			{% endfor %}-->
-
+	<!--Show details of the item, including price, name, stock, rate and description-->
 			<div class="container col-xs-8" >
 				<ul class="nav navbar-nav">
 					<li><h1>{{ items.name }}</h1></li>
@@ -66,11 +66,13 @@ UOG Giftshop
 					{{ items.description|linebreaks }}
 				</div>
 			</div>
+			<!--Buy button link to the official giftshop website-->
 				<div id="buy_btn">
 					<table>
 						<tbody>
 							<tr>
 								<td><a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a></td>
+				<!--If user login, they can add the item to their wishlist-->
                 {% if user.is_authenticated %}
                   <td><a href="{% url 'add_wishlist' category.slug items.slug %}"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
                 {% endif %}
@@ -89,7 +91,7 @@ UOG Giftshop
 
 
 
-
+	<!--This is a table to show comments of the item-->
 	<div>
 		<div class="container">
 			<h2>Customer Reviews</h2>
@@ -120,13 +122,8 @@ UOG Giftshop
 
 
 
-	<script>
-	$(document).ready( function () {
-		$('#table_id').DataTable();
-	} );
-	</script>
 
-
+<!--If user login, they can add the comment of the item and rate it-->
     {% if user.is_authenticated %}
     <div id="make_comment">
         <div class="container">

@@ -30,6 +30,7 @@ UOG Giftshop
 		<nav class="navbar navbar-default" id="new-nav"style="margin-left: 10%" >
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
+		<!--Show new arrivals-->
         {% for item in new_items %}
           <li>
             <a href="{% url 'show_item' item.category.slug item.slug %}">
@@ -60,13 +61,13 @@ UOG Giftshop
 </div>
 <div class="border-3"></div>
 <div class="container text-center">
-  <!-- <h3>What We Do</h3><br> -->
+
+  
   <div><h2 style="text-align:center">Most Popular</h2></div>
-
-
   <br>
   <p></p>
   <div class="row">
+    <!-- Show items with top 6 views as the most popular recommendation -->
 	{% for item in items %}
 		<div class="col-sm-4 container">
       <a href="{% url 'show_item' item.category.slug item.slug %}"><img src="{{ item.logo.url }}" class="img-responsive"  alt="Image"></a>

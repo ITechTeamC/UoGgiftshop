@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <!-- Item One -->
+        <!-- If some items in wishlist, show all the items -->
         {% if wishlists %}
 		{% for wishlist in wishlists %}
         <div class="row">
@@ -29,6 +29,7 @@
                 <h3>{{ wishlist.item }}</h3>
                 <h4>{{ wishlist.item.slug }}</h4>
                 <p>{{ wishlist.added_date | date:"j M" }}</p>
+				<!--User can remove one item from wishlist-->
                 <a class="btn btn-primary" href="{% url 'delete_wishlist' wishlist.item.slug %}">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
@@ -43,7 +44,7 @@
 
 
         <hr>
-        <!-- Pagination and item -->
+        <!-- Pagination -->
         <div class="row text-center">
             <div class="col-lg-12">
                 <ul class="pagination">
