@@ -64,7 +64,7 @@ UOG Giftshop
 								<th>item</th>
 
 								<th>Comment</th>
-								<th>User</th>
+								<th>Rate</th>
 								<th>Date</th>
 							</tr>
 						</thead>
@@ -74,18 +74,12 @@ UOG Giftshop
 										<td>{{comment.item}}</td>
 
 										<td>{{ comment.content }}</td>
-										<td id="comment_user">{{ comment.user }}</td>
+										<td id="comment_user">{{ comment.rate }}</td>
 										<td>{{ comment.pub_date | date:"j M" }}</td>
 									</tr>
 								{% endfor %}
 							</tbody>
 					</table>
-
-					<script>
-						$(document).ready( function () {
-							$('#table_id').DataTable();
-						} );
-					</script>
 
 			</div>
         </div>
