@@ -232,8 +232,7 @@ def profile(request, username):
     return render(request, 'giftshop/profile.html',
                   get_categories({'userprofile': userprofile,'selecteduser': user, 'form':form}))
 
-def user_setting(request):
-	return render(request, 'giftshop/setting.html', get_categories({}))
+
 
 
 
