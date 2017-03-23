@@ -34,12 +34,12 @@ UOG Giftshop
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="/giftshop/profile/">
+							<a href="{% url 'profile' user.username %}">
 							<i class="glyphicon glyphicon-home"></i>
 							Overview </a>
 						</li>
 						<li>
-							<a href="/giftshop/setting/">
+							<a href="{% url 'setting' %}">
 							<i class="glyphicon glyphicon-cog"></i>
 							Account Settings </a>
 						</li>

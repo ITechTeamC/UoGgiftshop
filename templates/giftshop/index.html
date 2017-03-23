@@ -30,9 +30,14 @@ UOG Giftshop
 		<nav class="navbar navbar-default" id="new-nav"style="margin-left: 10%" >
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
-					<li><a href="http://127.0.0.1:8000/giftshop/category/accessories/university-hallmarked-silver-crest-pin/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/Accessories/University Hallmarked Silver Crest Pin.jpg" alt="Image"></a></li>
-					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/university-beanie-hat/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/Clothing/hat.jpg" alt="Image"></a><li>
-					<li><a href="http://127.0.0.1:8000/giftshop/category/clothing/clothing-1/"><img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/Accessories/Exclusive University Alumni and Graduation Watch.jpg" alt="Image"></a><li>
+        {% for item in new_items %}
+          <li>
+            <a href="{% url 'show_item' item.category.slug item.slug %}">
+              <img id="scroll-img" class="img-responsive" src="{{MEDIA_URL}}/{{item.category.slug}}/{{item.slug}}.jpg" alt="Image">
+            </a>
+          </li>
+
+        {% endfor %}
 				</ul>
 			</div>
 		</nav>
@@ -53,7 +58,7 @@ UOG Giftshop
       <span class="sr-only">Next</span>
     </a>
 </div>
-<div class="border-3"></div> 
+<div class="border-3"></div>
 <div class="container text-center">
   <!-- <h3>What We Do</h3><br> -->
   <div><h2 style="text-align:center">Most Popular</h2></div>
@@ -64,10 +69,10 @@ UOG Giftshop
   <div class="row">
 	{% for item in items %}
 		<div class="col-sm-4 container">
-			<a href="category/{{item.category.slug}}/{{ item.slug }}"><img src="{{ item.logo.url }}" class="img-responsive"  alt="Image"></a>
+      <a href="{% url 'show_item' item.category.slug item.slug %}"><img src="{{ item.logo.url }}" class="img-responsive"  alt="Image"></a>
 		</div>
 	 {% endfor %}
-	
+
   </div>
 </div><br>
 

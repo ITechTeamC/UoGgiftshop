@@ -15,7 +15,7 @@ UOG Giftshop
 
     {% if items %}
     <div id="item-001">
-	   
+
         <div id="item_pic" style="margin:30px;float:left" >
             <img id="item_img" class="img-responsive" src="{{ items.logo.url }}" />
         </div>
@@ -26,8 +26,8 @@ UOG Giftshop
 			{% for n in pictures %}
 			<img src="{{n.picture.url}}"/>
 			{% endfor %}-->
-            
-			<div class="container col-xs-8" >	
+
+			<div class="container col-xs-8" >
 				<ul class="nav navbar-nav">
 					<li><h1>{{ items.name }}</h1></li>
 					<li><div style="margin:5px"></div></li>
@@ -38,7 +38,7 @@ UOG Giftshop
 					</li>
 					<li><div style="margin:5px"></div></li>
 					<li>
-						<a href="https://twitter.com/share" class="twitter-share-button" data-size="samall">Tweet</a> 
+						<a href="https://twitter.com/share" class="twitter-share-button" data-size="samall">Tweet</a>
 						<script>
 							!function(d,s,id){
 								var js,fjs=d.getElementsByTagName(s)[0],
@@ -67,7 +67,7 @@ UOG Giftshop
 				</div>
 				<br><br><br>
 
-			
+
 				<div><p id="item_stock">stock: 56</p></div>
 				<p> visits: {{ visits }}</p>
 
@@ -81,12 +81,12 @@ UOG Giftshop
 						<tbody>
 							<tr>
 								<td><a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a></td>
-								<td><a href="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_wishlist/"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
+                <td><a href="{% url 'add_wishlist' category.slug items.slug %}"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			
+
     </div>
                     {% endif %}
 
@@ -97,7 +97,7 @@ UOG Giftshop
 
 
 
-	
+
 	<div>
 		<div class="container">
 			<h2>Customer Reviews</h2>
@@ -122,29 +122,29 @@ UOG Giftshop
 					</tr>
 				{% endfor %}
 				</tbody>
-			</table>			
+			</table>
 		</div>
 	</div>
-	
-	
-	
+
+
+
 	<script>
 	$(document).ready( function () {
 		$('#table_id').DataTable();
 	} );
 	</script>
-	
-	
+
+
     {% if user.is_authenticated %}
     <div id="make_comment">
         <div class="container">
             <h2>Make Your Own Comment: </h2>
 			<br>
 
-					
+
 			<div><h4>Comment:</h4></div>
 			{% load bootstrap3 %}
-                    <form action="/giftshop/category/{{ category.slug }}/{{ items.slug }}/add_comment/" method="post">
+                    <form action="{% url 'add_comment' category.slug items.slug %}" method="post">
                         {% csrf_token %}
 						{% bootstrap_form commentform %}
 
@@ -158,12 +158,12 @@ UOG Giftshop
 	<div class="container">
 		<div class="well" >
 			<h3 id="comment_login">Login to make your own comments.</h3>
-			<div id="login_link"><a href="/giftshop/login/" ><h4 >Login</h4></a></div>
+			<div id="login_link"><a href="{% url 'login' %}" ><h4 >Login</h4></a></div>
 		</div>
 	</div>
 	{% endif %}
-	
-	
+
+
 </div>
 
 <div class="border-4"></div>
@@ -181,5 +181,3 @@ UOG Giftshop
 
 
 {% endblock %}
-
-

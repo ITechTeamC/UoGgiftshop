@@ -24,6 +24,13 @@ def index(request):
     context_dict ={}
     item_list = Item.objects.order_by('-views')[:6]
     context_dict['items'] = item_list
+
+    new_item_list = Item.objects.order_by('-id')[:3]
+    context_dict['new_items'] = new_item_list
+
+    # context_dict['cat_name'] = 'accessories'
+    # context_dict['item_name'] = 'university-hallmarked-silver-crest-pin'
+
     return render(request, 'giftshop/index.html', get_categories(context_dict))
 
 def show_category(request, category_name_slug):
@@ -54,7 +61,7 @@ def my_comments(request):
 
 
 @login_required
-def add_wishlist(request, item_name_slug):
+def add_wishlist(request, category_name_slug, item_name_slug):
     b = False
     user = request.user
     item = Item.objects.get(slug=item_name_slug)
@@ -254,10 +261,10 @@ def visitor_cookie_handler(request,item):
         request.session['last_visit'] = last_visit_cookie
     # Update/set the visits cookie
     request.session['visits'] = visits
-	
 
 
-def show_item(request, item_name_slug):
+
+def show_item(request, category_name_slug, item_name_slug):
     context_dict = {}
     commentform = CommmentForm()
     try:

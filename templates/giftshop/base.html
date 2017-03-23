@@ -15,8 +15,8 @@
   <meta property="og:title"         content="UoG giftshop" />
   <meta property="og:description"   content="Your description" />
   <meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />
-  
-  
+
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,7 +81,7 @@
           <!-- <li class="active"></li> -->
           {% if categories %}
             {% for category in categories %}
-          <li><a href="/giftshop/category/{{ category.slug }}">{{ category.name }}</a></li>
+              <li><a href="{% url 'show_category' category.slug %}">{{ category.name }}</a></li>
             {% endfor %}
           {% endif %}
         </ul>

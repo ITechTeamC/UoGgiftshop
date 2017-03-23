@@ -24,10 +24,10 @@ UOG Giftshop
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						Marcus Doe
+						{{ user.username }}
 					</div>
 					<div class="profile-usertitle-email">
-						Doe@gmail.com
+						{{ user.email }}
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -38,7 +38,7 @@ UOG Giftshop
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="/giftshop/profile/">
+							<a href="{% url 'profile' user.username %}">
 							<i class="glyphicon glyphicon-home"></i>
 							Overview </a>
 						</li>
@@ -48,9 +48,9 @@ UOG Giftshop
 							Account Settings </a>
 						</li>
 						<li>
-							<a href="/giftshop/mycomments/">
+							<a href="{% url 'my_comments' %}">
 							<i class="glyphicon glyphicon-comment"></i>
-							My comments </a>
+							My Comments </a>
 						</li>
 					</ul>
 				</div>
@@ -80,7 +80,7 @@ UOG Giftshop
 						<div class="panel-heading"><i class="glyphicon glyphicon-earphone"></i> Phone Number</div>
 						<div class="panel-body">
 							<div class="col-xs-4">
-								<input type="text" class="form-control"; style="ime-mode:disabled" onpaste="return false" onkeypress="keyPress()" /> 
+								<input type="text" class="form-control"; style="ime-mode:disabled" onpaste="return false" onkeypress="keyPress()" />
 							</div>
 							<div class="text_btn"><input type="submit" class="btn btn-primary" value="Confirm"></div>
 						</div>
@@ -97,7 +97,7 @@ UOG Giftshop
 							</div>
 							<div class="text_btn"><input type="submit" class="btn btn-danger" value="Confirm"></div>
 						</div>
-					</div>				
+					</div>
 				</div>
 			</div>
             </div>
@@ -107,13 +107,13 @@ UOG Giftshop
 
 <!-- Script for phone number-->
 <script>
-	function keyPress() 
-		{ var keyCode = event.keyCode; 
-			if (keyCode >= 48 && keyCode <= 57) 
+	function keyPress()
+		{ var keyCode = event.keyCode;
+			if (keyCode >= 48 && keyCode <= 57)
 				{ event.returnValue = true; }
-			else 
-				{ event.returnValue = false; } 
-		} 
+			else
+				{ event.returnValue = false; }
+		}
 	</script>
 
 {% endblock %}

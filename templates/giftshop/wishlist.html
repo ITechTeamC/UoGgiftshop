@@ -15,7 +15,7 @@
                 <h1 class="page-header">My WishList </h1>
             </div>
         </div>
-		
+
         <!-- Item One -->
         {% if wishlists %}
 		{% for wishlist in wishlists %}
@@ -29,7 +29,7 @@
                 <h3>{{ wishlist.item }}</h3>
                 <h4>{{ wishlist.item.slug }}</h4>
                 <p>{{ wishlist.added_date | date:"j M" }}</p>
-                <a class="btn btn-primary" href="/giftshop/wishlist/{{ wishlist.item.slug }}/delete_wishlist/">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="{% url 'delete_wishlist' wishlist.item.slug %}">Remove <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
 		<hr>
