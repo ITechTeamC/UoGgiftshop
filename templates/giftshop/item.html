@@ -81,14 +81,16 @@ UOG Giftshop
 						<tbody>
 							<tr>
 								<td><a href="{{ items.url }}"><button type="button" class="btn btn-primary btn-lg">Buy in the Gift Shop</button></a></td>
-                <td><a href="{% url 'add_wishlist' category.slug items.slug %}"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
+                {% if user.is_authenticated %}
+                  <td><a href="{% url 'add_wishlist' category.slug items.slug %}"><button type="submit" class="btn btn-success btn-lg" id="list_btn">Add into Wishlist</button></a></td>
+                {% endif %}
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
     </div>
-                    {% endif %}
+  {% endif %}
 
     <div class="border-4"></div>
 	<div class="border-4"></div>

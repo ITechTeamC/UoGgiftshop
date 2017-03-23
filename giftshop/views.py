@@ -187,7 +187,7 @@ def user_wishlist(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         wishlists = paginator.page(paginator.num_pages)
 
-    return render(request, 'giftshop/wishlist.html', {'wishlists': wishlists})
+    return render(request, 'giftshop/wishlist.html', get_categories({'wishlists': wishlists}))
 
 @login_required
 def register_profile(request):
@@ -201,12 +201,12 @@ def register_profile(request):
             print  form.errors
     else:
         form = UserProfileForm()
-    return render(request, 'giftshop/profile.html',{'form':form})
+    return render(request, 'giftshop/profile.html',get_categories({'form':form}))
 
 @login_required
 def profile_page(request, username):
     user = get_object_or_404(User, username=username)
-    return render (request, 'giftshop/profile.html',{'profile_user':user})
+    return render (request, 'giftshop/profile.html',get_categories({'profile_user':user}))
 
 @login_required
 def profile(request, username):
@@ -225,7 +225,7 @@ def profile(request, username):
         else:
             print(form.errors)
     return render(request, 'giftshop/profile.html',
-                  {'userprofile': userprofile,'selecteduser': user, 'form':form})
+                  get_categories({'userprofile': userprofile,'selecteduser': user, 'form':form}))
 
 def user_setting(request):
 	return render(request, 'giftshop/setting.html', get_categories({}))
