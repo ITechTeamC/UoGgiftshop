@@ -6,7 +6,7 @@ from django.template.defaultfilters import slugify
 
 
 
-
+#Info of different categories
 class Category(models.Model):
     name = models.CharField(max_length=32, unique=True)
     slug = models.SlugField(unique=True)
@@ -20,7 +20,7 @@ class Category(models.Model):
         return self.name
 
 
-
+#Info of different items
 class Item(models.Model):
     category = models.ForeignKey(Category)
     name = models.CharField(max_length=128, unique=True)
@@ -30,6 +30,7 @@ class Item(models.Model):
     views = models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+	# Main picture for items
     logo = models.ImageField(upload_to='profile_images', blank=True)
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -56,7 +57,7 @@ class Wishlist(models.Model):
     def __str__(self):
         return self.item.name
 
-
+# Extra info of users
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     address = models.TextField(default = '')
@@ -66,7 +67,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-
+# Extra pictures for items
 class Itempictures(models.Model):
     item = models.ForeignKey(Item)
     picture = models.ImageField(upload_to='profile_images', blank=True)

@@ -32,6 +32,8 @@ def index(request):
     # context_dict['item_name'] = 'university-hallmarked-silver-crest-pin'
 
     return render(request, 'giftshop/index.html', get_categories(context_dict))
+	
+	
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -75,7 +77,9 @@ def add_wishlist(request, category_name_slug, item_name_slug):
         return redirect('/giftshop/wishlist/')
     else:
         return redirect('/giftshop/wishlist/')
-
+		
+		
+#Remove a item from wishlist
 @login_required
 def delete_wishlist(request, item_name_slug):
     user = request.user
@@ -84,7 +88,7 @@ def delete_wishlist(request, item_name_slug):
     wishlist.delete()
     return redirect('/giftshop/wishlist/')
 
-
+#Read comment and rate from comment form and add to database
 @login_required
 def add_comment(request,category_name_slug,item_name_slug):
     try:
@@ -172,6 +176,7 @@ def item_detail(request):
 def user_register(request):
     return render(request, 'giftshop/register.html', {})
 
+#show wishlist
 @login_required
 def user_wishlist(request):
     user = request.user
@@ -263,7 +268,7 @@ def visitor_cookie_handler(request,item):
     request.session['visits'] = visits
 
 
-
+#Get and show item details
 def show_item(request, category_name_slug, item_name_slug):
     context_dict = {}
     commentform = CommmentForm()
